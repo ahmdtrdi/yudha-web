@@ -1,69 +1,114 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { ThreeDButton } from "@/components/ThreeDButton";
 
 export default function Home() {
+  const heroRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+
+    let frame = 0;
+    const updatePress = () => {
+      const progress = Math.min(Math.max(window.scrollY / 220, 0), 1);
+      hero.style.setProperty("--hand-press", `${progress * 32}px`);
+      hero.style.setProperty("--press-progress", `${progress}`);
+      frame = 0;
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updatePress);
+    };
+
+    updatePress();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <main>
+      <section ref={heroRef} className="hero" aria-labelledby="hero-title">
+        <div className="hero__stage">
+          <nav className="navbar" aria-label="Navigasi utama">
+            <a className="brand" href="#hero" aria-label="Yudha, kembali ke atas">
+              Yudha
+            </a>
+
+            <div className="navbar__links">
+              <a className="push-button push-button--lime" href="#how-to-play">
+                How to Play
+              </a>
+              <a className="push-button push-button--lime" href="#faq">
+                FAQ
+              </a>
+            </div>
+
+            <a className="push-button push-button--blue navbar__download" href="#download">
+              Download
+            </a>
+          </nav>
+
+          <div className="hero__copy" id="hero">
+            <h1 id="hero-title">Mulai Perjalananmu</h1>
+            <p>Push Your Limit</p>
+          </div>
+
+          <Image
+            className="hero__city"
+            src="/assets/city-park-landing-hero-2x.webp"
+            alt="Ilustrasi taman hijau di tengah gedung perkotaan"
+            width={2974}
+            height={2116}
+            priority
+            quality={100}
+            sizes="(min-width: 1440px) 1440px, 100vw"
+          />
+
+          <div className="press-scene">
             <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+              className="press-scene__hand"
+              src="/assets/cartoon-hand.png"
+              alt="Tangan kartun yang mengarah ke tombol download"
+              width={1246}
+              height={760}
+              priority
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+
+            <ThreeDButton
+              id="download"
+              href="#live-beta"
+              topLabel="Download"
+              frontLabel="Live Beta"
+            />
+          </div>
+
+          <p className="hero__tagline">Untuk kamu yang mengejar mimpi</p>
+
+          <a className="scroll-cue" href="#how-to-play" aria-label="Lihat bagian berikutnya">
+            <span>Scroll untuk menekan</span>
+            <span aria-hidden="true">↓</span>
           </a>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="intro" id="how-to-play">
+        <h2>Berani mulai. Terus melaju.</h2>
+        <p>
+          Yudha hadir untuk menemani setiap langkah, dari tantangan pertama sampai
+          pencapaian terbaikmu.
+        </p>
+      </section>
+
+      <section className="faq" id="faq" aria-labelledby="faq-title">
+        <p>Punya pertanyaan?</p>
+        <h2 id="faq-title">Semua yang perlu kamu tahu, segera hadir.</h2>
+      </section>
+    </main>
   );
 }
