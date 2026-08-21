@@ -638,3 +638,38 @@
 ### The Tech Debt
 
 - The button geometry now changes discretely at the contact threshold. A future continuous polygon morph would require matching vertex sets or an SVG morphing library.
+
+## 2026-08-21 — Perspective-integrated CTA lettering
+
+### The Change
+
+- Replaced simple SVG text rotation with face-specific perspective transforms for the top and front button labels.
+- Compressed glyph height and added horizontal skew so letterforms follow each polygon plane rather than remaining screen-flat.
+- Reduced label size and tracking, removed the artificial italic front label, and switched to a denser neutral sans-serif weight.
+- Applied slightly translucent dark-olive ink with multiply blending so the lettering inherits the lime face color.
+
+### The Reasoning
+
+- Baseline rotation alone aligned the words with the button edges but left vertical glyph strokes perpendicular to the screen, producing a pasted-on decal appearance.
+- Plane-aware skew and vertical compression make the typography share the same perspective as the 3D solid.
+- Multiply blending avoids perfectly opaque digital black and makes the labels read as printing on a colored physical surface.
+
+### The Tech Debt
+
+- The perspective values are tuned to the current SVG polygon coordinates. Replotting either button face requires retuning the corresponding text transform.
+
+## 2026-08-21 — Live Beta label emphasis
+
+### The Change
+
+- Increased the front-face `LIVE BETA` label from 20px to 24px.
+- Added slightly wider tracking and reduced vertical compression while retaining its face-aligned rotation and skew.
+
+### The Reasoning
+
+- The previous label blended into the button surface correctly but lacked enough visual weight to read as an interactive secondary call to action.
+- Preserving the perspective transform keeps the larger lettering physically integrated with the front plane.
+
+### The Tech Debt
+
+- The front label is sized for the current two-word copy. Longer localized text may require responsive SVG text fitting.

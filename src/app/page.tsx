@@ -8,6 +8,23 @@ const clampProgress = (progress: number) => Math.min(Math.max(progress, 0), 1);
 const easeInOut = (progress: number) => progress * progress * (3 - 2 * progress);
 const easeOut = (progress: number) => 1 - (1 - progress) ** 3;
 
+const partners = [
+  { name: "Danantara Indonesia", className: "partner--danantara" },
+  { name: "Mandiri", className: "partner--mandiri" },
+  { name: "LPDP", className: "partner--lpdp" },
+  { name: "ParagonCorp", className: "partner--paragon" },
+  { name: "BCA", className: "partner--bca" },
+  { name: "Astra", className: "partner--astra" },
+  { name: "Telkom Indonesia", className: "partner--telkom" },
+];
+
+const questions = [
+  "Apa itu Yudha?",
+  "Bagaimana cara memulai perjalanan?",
+  "Siapa yang dapat menggunakan Yudha?",
+  "Apakah Yudha dapat diakses kapan saja?",
+];
+
 export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
 
@@ -191,7 +208,7 @@ export default function Home() {
       <p className="hero__tagline">Untuk kamu yang mengejar mimpi</p>
 
       <section className="demo-section" aria-label="Demo Produk">
-        <div className="demo-card" id="demo-video">
+        <div className="demo-card surface-card" id="demo-video">
           <div className="demo-card__placeholder">
             <span className="demo-card__play-icon" aria-hidden="true">▶</span>
             <p>Product Demo Video</p>
@@ -203,18 +220,101 @@ export default function Home() {
         </h2>
       </section>
 
-      <section className="intro" id="how-to-play">
-        <h2>Berani mulai. Terus melaju.</h2>
-        <p>
-          Yudha hadir untuk menemani setiap langkah, dari tantangan pertama sampai
-          pencapaian terbaikmu.
+      <section className="ecosystem" id="how-to-play" aria-labelledby="ecosystem-title">
+        <h2 id="ecosystem-title" className="sr-only">Ekosistem perjalanan Yudha</h2>
+        <div className="ecosystem__orbit" aria-label="Partner ekosistem Yudha">
+          <span className="ecosystem__ring ecosystem__ring--outer" aria-hidden="true" />
+          <span className="ecosystem__ring ecosystem__ring--inner" aria-hidden="true" />
+          <span className="ecosystem__center">Yudha</span>
+          {partners.map((partner) => (
+            <span className={`partner ${partner.className}`} key={partner.name}>
+              {partner.name}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <p className="section-statement">
+        Kami ciptakan untuk kamu yang berani maju
+        <br />
+        dengan keterbatasan yang ada
+      </p>
+
+      <section className="battle surface-card" aria-labelledby="battle-title">
+        <h2 id="battle-title">Aptitude Battle</h2>
+        <p className="battle__benefit battle__benefit--left">
+          Akses kapan saja,
+          <br />
+          di mana saja
+        </p>
+        <div className="battle__phone" aria-label="Pratinjau aplikasi Yudha">
+          <span className="battle__phone-speaker" aria-hidden="true" />
+          <span>Yudha</span>
+        </div>
+        <p className="battle__benefit battle__benefit--right">
+          Akses kapan saja,
+          <br />
+          di mana saja
         </p>
       </section>
 
-      <section className="faq" id="faq" aria-labelledby="faq-title">
-        <p>Punya pertanyaan?</p>
-        <h2 id="faq-title">Semua yang perlu kamu tahu, segera hadir.</h2>
+      <section className="faq-section" id="faq" aria-labelledby="faq-title">
+        <header className="faq-section__heading">
+          <span>FAQ</span>
+          <h2 id="faq-title">Questions<br />answered</h2>
+        </header>
+
+        <div className="faq-section__list">
+          {questions.map((question, index) => (
+            <details key={question} open={index === 0}>
+              <summary>{question}</summary>
+              <p>
+                Yudha membantu kamu mengenali potensi, berlatih, dan melangkah
+                menuju peluang yang tepat.
+              </p>
+            </details>
+          ))}
+        </div>
       </section>
+
+      <section className="journey-cta surface-card" id="live-beta" aria-labelledby="journey-title">
+        <h2 id="journey-title">Mari melangkah bersama</h2>
+        <a className="push-button push-button--blue" href="#download">
+          Download
+        </a>
+      </section>
+
+      <footer className="site-footer">
+        <nav className="site-footer__links" aria-label="Navigasi footer">
+          <div>
+            <h3>Company</h3>
+            <a href="#hero">About</a>
+            <a href="#how-to-play">Careers</a>
+            <a href="mailto:hello@yudha.id">Become an affiliate</a>
+          </div>
+          <div>
+            <h3>Resources</h3>
+            <a href="mailto:hello@yudha.id">Contact us</a>
+            <a href="#faq">Help center</a>
+            <a href="#download">Download apps</a>
+          </div>
+          <div>
+            <h3>Legal</h3>
+            <a href="#faq">Privacy policy</a>
+          </div>
+          <div>
+            <h3>Connect</h3>
+            <a href="#hero">X</a>
+            <a href="#hero">LinkedIn</a>
+            <a href="#hero">Instagram</a>
+          </div>
+        </nav>
+
+        <div className="site-footer__brand">
+          <p>Your Ultimate Digital Hired Arena</p>
+          <strong>YUDHA</strong>
+        </div>
+      </footer>
     </main>
   );
 }

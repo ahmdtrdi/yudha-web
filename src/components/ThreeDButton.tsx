@@ -38,7 +38,6 @@ export function ThreeDButton({
             className="mega-button__front-label"
             x="270"
             y="205"
-            transform="rotate(4 270 205)"
           >
             {frontLabel}
           </text>
@@ -53,7 +52,6 @@ export function ThreeDButton({
             className="mega-button__top-label"
             x="307"
             y="105"
-            transform="rotate(4 307 105)"
           >
             {topLabel}
           </text>
@@ -85,7 +83,6 @@ export function ThreeDButton({
             className="mega-button__top-label"
             x="307"
             y="170"
-            transform="rotate(4 307 170)"
           >
             {topLabel}
           </text>
