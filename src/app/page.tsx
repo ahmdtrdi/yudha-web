@@ -33,6 +33,12 @@ export default function Home() {
     const button = hero?.querySelector<HTMLElement>(".mega-button");
     if (!hero || !button) return;
 
+    const isMobileViewport = window.matchMedia("(max-width: 760px)").matches;
+    const supportsPointerInteraction = window.matchMedia(
+      "(hover: hover) and (pointer: fine)",
+    ).matches;
+    const handTravelScale = isMobileViewport ? 0.65 : 1;
+
     let frame = 0;
     let currentHandOffset = 0;
     let currentPressProgress = 0;
@@ -62,7 +68,8 @@ export default function Home() {
       const approachProgress = easeOut(clampProgress(scrollOffset / 24));
       const pressProgress = easeInOut(clampProgress((scrollOffset - 24) / 52));
 
-      scrollHandOffset = approachProgress * 18 + pressProgress * 44;
+      scrollHandOffset =
+        (approachProgress * 18 + pressProgress * 44) * handTravelScale;
       scrollPressProgress = pressProgress;
       updateCombinedTargets();
     };
@@ -100,7 +107,7 @@ export default function Home() {
     };
 
     const onPointerMove = (event: PointerEvent) => {
-      if (event.pointerType === "touch") return;
+      if (!supportsPointerInteraction || event.pointerType === "touch") return;
 
       const bounds = button.getBoundingClientRect();
       const horizontalDistance = Math.max(
@@ -311,8 +318,33 @@ export default function Home() {
         </nav>
 
         <div className="site-footer__brand">
-          <p>Your Ultimate Digital Hired Arena</p>
-          <strong>YUDHA</strong>
+          <svg
+            viewBox="0 0 1000 274"
+            role="img"
+            aria-labelledby="footer-brand-title"
+          >
+            <title id="footer-brand-title">
+              Your Ultimate Digital Hired Arena — YUDHA
+            </title>
+            <text
+              className="site-footer__tagline"
+              x="0"
+              y="56"
+              textLength="1000"
+              lengthAdjust="spacing"
+            >
+              Your Ultimate Digital Hired Arena
+            </text>
+            <text
+              className="site-footer__wordmark"
+              x="0"
+              y="272"
+              textLength="1000"
+              lengthAdjust="spacing"
+            >
+              YUDHA
+            </text>
+          </svg>
         </div>
       </footer>
     </main>

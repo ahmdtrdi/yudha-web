@@ -695,3 +695,142 @@
 - Replace ecosystem text badges with approved partner logo files when they are provided.
 - The demo surface and phone screen remain intentional media placeholders pending final video and product UI assets.
 - Footer destinations currently use in-page sections or the project contact email and should be replaced with production routes before launch.
+
+## 2026-08-21 — Content-height mobile hero
+
+### The Change
+
+- Removed the forced `100dvh` and 680px minimum height from the mobile hero stage so following content enters immediately after the composition.
+- Rebuilt the mobile navbar as a compact three-column row containing the brand, centered navigation links, and download action.
+- Reduced mobile navigation controls, hand, and 3D CTA dimensions while tightening hero copy and illustration spacing.
+- Added mobile-specific tagline margins to create a deliberate transition into the product-demo section without an empty viewport.
+
+### The Reasoning
+
+- The fixed viewport-height stage left several hundred pixels of unused white space below the CTA on phone screens and made the page appear incomplete.
+- The previous two-column navbar auto-placed Download on a second row, producing an unintended stacked header.
+- Content-driven height and width-bounded artwork keep the entire hero readable while allowing users to discover the sliced sections with a normal first scroll.
+
+### The Tech Debt
+
+- Navigation copy currently fits down to 320px using compact controls. Longer localization strings will require a menu treatment rather than further shrinking touch targets.
+
+## 2026-08-21 — Mobile hand-to-CTA separation
+
+### The Change
+
+- Raised the resting hand and returned the mobile CTA to non-negative flow spacing, creating a clear initial gap between both elements.
+- Reduced scroll-driven hand travel to 65% on viewports up to 760px so the pressed state touches the CTA without excessive overlap.
+- Restricted pointer-proximity pressing to devices that report both hover support and a fine pointer.
+
+### The Reasoning
+
+- Chrome device emulation can still dispatch mouse-like pointer events, accidentally activating desktop proximity behavior on a mobile-sized layout.
+- The desktop hand travel was visually too large relative to the reduced mobile artwork and CTA dimensions.
+- Separate resting position and travel scaling preserve the physical press interaction while preventing the wrist from sitting inside the button before interaction.
+
+### The Tech Debt
+
+- Viewport and pointer capability are sampled when the hero mounts. Dynamically switching an open page between desktop and device emulation requires a refresh to pick up the new interaction profile.
+
+## 2026-08-21 — Height-aware laptop typography
+
+### The Change
+
+- Changed desktop hero title sizing from width-only `vw` scaling to a bounded minimum of viewport width and viewport height.
+- Applied the same height-aware scaling to the subtitle and widened the copy container slightly to preserve a balanced single-line heading.
+- Added `vh` fallbacks before the preferred stable-viewport-height declarations.
+
+### The Reasoning
+
+- Fourteen-inch laptops and Windows display scaling can produce a wide CSS layout with limited usable browser height, causing width-derived text to overpower the composition.
+- Selecting the smaller width- or height-derived size keeps typography proportional to the city, hand, and CTA, which were already constrained by viewport height.
+
+### The Tech Debt
+
+- The current headline fits comfortably in Indonesian. Longer localized headlines may still require controlled line wrapping rather than further font reduction.
+
+## 2026-08-21 — Footer brand lockup proportion
+
+### The Change
+
+- Increased “Your Ultimate Digital Hired Arena” from a 2.3vw/2.25rem scale to a 3vw/3.5rem scale.
+- Tightened tagline tracking and line height to match the compact Figma word shape.
+- Reduced the YUDHA wordmark from a 20vw/20rem scale to 17vw/17rem.
+
+### The Reasoning
+
+- In the Figma lockup, the tagline and YUDHA wordmark have nearly equal visual widths; the implementation previously made the tagline roughly half as wide.
+- Reducing the wordmark while enlarging the tagline restores their intended hierarchy without changing footer placement or navigation spacing.
+
+### The Tech Debt
+
+- Exact glyph widths currently depend on the system Arial fallback. Bundle the final brand font if pixel-identical cross-platform typography is required.
+
+## 2026-08-21 — Edge-locked footer wordmark
+
+### The Change
+
+- Split the footer tagline into word spans and YUDHA into letter spans while preserving accessible full-string labels.
+- Placed both lines inside one responsive 62vw/1050px lockup container.
+- Used distributed flex spacing so “Your” and Y share the exact left boundary while “Arena” and A share the exact right boundary.
+- Added a narrower mobile lockup and reduced mobile tagline sizing to prevent overflow.
+
+### The Reasoning
+
+- Independent centered text cannot guarantee matching outer glyph edges because each line has different intrinsic font metrics.
+- A shared container with distributed units makes the requested boundary alignment deterministic across viewport sizes and display scaling.
+
+### The Tech Debt
+
+- The distributed layout assumes the current five-word tagline and five-letter wordmark. Copy changes require reviewing the spacing rhythm even though the outer alignment remains stable.
+
+## 2026-08-21 — Uniformly scaled footer lockup
+
+### The Change
+
+- Replaced the flex-distributed footer words and letters with one responsive SVG lockup.
+- Applied equal 1000-unit `textLength` values to the tagline and YUDHA using `spacingAndGlyphs` adjustment.
+- Preserved the complete lockup as one accessible image with an explicit title.
+
+### The Reasoning
+
+- Flex distribution aligned the outer edges by inserting visibly exaggerated gaps between individual words and letters.
+- SVG text-length adjustment scales the complete natural text run uniformly, preserving normal relative spaces while making both lines share exact left and right boundaries.
+
+### The Tech Debt
+
+- The lockup still uses the system Arial stack. Replace the SVG font family with the final bundled brand typeface when it becomes available.
+
+## 2026-08-21 — Natural footer glyph proportions
+
+### The Change
+
+- Changed the footer SVG fitting mode from `spacingAndGlyphs` to `spacing`, so the letter shapes are no longer stretched horizontally.
+- Increased the intrinsic text sizes to keep edge alignment adjustments subtle while preserving the shared Y/A boundaries.
+- Reduced the tagline weight from 700 to 600 and the YUDHA wordmark weight from 900 to 700.
+
+### The Reasoning
+
+- Scaling both spacing and glyphs made the lockup fill its frame but visibly flattened the typography.
+- Adjusting only inter-character spacing preserves the font's natural aspect ratio, while lighter weights better match the Figma reference.
+
+### The Tech Debt
+
+- Exact text metrics remain dependent on the system Arial installation until the final design typeface is bundled.
+
+## 2026-08-21 — Tight footer lockup rhythm
+
+### The Change
+
+- Raised the YUDHA wordmark by 56 SVG units and reduced the lockup view box by the same amount.
+- Kept the existing natural glyph proportions, weights, and shared outer alignment unchanged.
+
+### The Reasoning
+
+- Arial's cap-height metrics left substantially more whitespace between the tagline baseline and the visible top of YUDHA than the Figma composition.
+- Moving the wordmark baseline upward removes that metric-driven gap while retaining the footer's bottom anchoring.
+
+### The Tech Debt
+
+- The optical gap may need one final adjustment after the definitive brand font replaces Arial.
