@@ -673,3 +673,25 @@
 ### The Tech Debt
 
 - The front label is sized for the current two-word copy. Longer localized text may require responsive SVG text fitting.
+
+## 2026-08-21 — Complete landing-page slicing through footer
+
+### The Change
+
+- Replaced the temporary intro and FAQ blocks with the complete Figma section sequence: product demo, ecosystem orbit, value statement, Aptitude Battle, accordion FAQ, download CTA, and footer.
+- Added responsive outlined cards with shared border/depth treatment for the video, battle, and CTA surfaces.
+- Built the ecosystem diagram with concentric lime rings and positioned partner badges, using editable text placeholders where final logo assets are not yet available.
+- Added a CSS-rendered phone mockup, native accessible FAQ accordions, structured footer navigation, and the oversized YUDHA wordmark treatment.
+- Added tablet and mobile adaptations for card dimensions, orbit scale, FAQ stacking, footer columns, and large typography.
+
+### The Reasoning
+
+- Native HTML structures keep the sliced page usable before final media and brand assets arrive: `details` provides keyboard-accessible FAQ behavior and semantic footer navigation remains functional.
+- A shared surface-card style preserves the repeated thin outline and lower-left black depth from the Figma artboard without duplicating geometry rules.
+- CSS-based placeholders allow layout review to continue without downloading unapproved third-party logo artwork.
+
+### The Tech Debt
+
+- Replace ecosystem text badges with approved partner logo files when they are provided.
+- The demo surface and phone screen remain intentional media placeholders pending final video and product UI assets.
+- Footer destinations currently use in-page sections or the project contact email and should be replaced with production routes before launch.
