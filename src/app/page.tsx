@@ -4,29 +4,125 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { ThreeDButton } from "@/components/ThreeDButton";
 
+const clampProgress = (progress: number) => Math.min(Math.max(progress, 0), 1);
+const easeInOut = (progress: number) => progress * progress * (3 - 2 * progress);
+const easeOut = (progress: number) => 1 - (1 - progress) ** 3;
+
 export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const hero = heroRef.current;
-    if (!hero) return;
+    const button = hero?.querySelector<HTMLElement>(".mega-button");
+    if (!hero || !button) return;
 
     let frame = 0;
-    const updatePress = () => {
-      const progress = Math.min(Math.max(window.scrollY / 220, 0), 1);
-      hero.style.setProperty("--hand-press", `${progress * 32}px`);
-      hero.style.setProperty("--press-progress", `${progress}`);
-      frame = 0;
+    let currentHandOffset = 0;
+    let currentPressProgress = 0;
+    let scrollHandOffset = 0;
+    let scrollPressProgress = 0;
+    let pointerInteraction = 0;
+    let targetHandOffset = 0;
+    let targetPressProgress = 0;
+    let previousTime = performance.now();
+
+    const updateCombinedTargets = () => {
+      const easedPointer = easeOut(pointerInteraction);
+      const pointerHandOffset = easedPointer * 62;
+      const pointerPressProgress = easeInOut(
+        clampProgress((pointerInteraction - 0.3) / 0.7),
+      );
+
+      targetHandOffset = Math.max(scrollHandOffset, pointerHandOffset);
+      targetPressProgress = Math.max(
+        scrollPressProgress,
+        pointerPressProgress,
+      );
+    };
+
+    const updateScrollTargets = () => {
+      const scrollOffset = Math.max(window.scrollY - hero.offsetTop, 0);
+      const approachProgress = easeOut(clampProgress(scrollOffset / 24));
+      const pressProgress = easeInOut(clampProgress((scrollOffset - 24) / 52));
+
+      scrollHandOffset = approachProgress * 18 + pressProgress * 44;
+      scrollPressProgress = pressProgress;
+      updateCombinedTargets();
+    };
+
+    const renderPress = (time: number) => {
+      const elapsed = Math.min(time - previousTime, 32);
+      const smoothing = 1 - Math.exp(-elapsed / 28);
+
+      currentHandOffset += (targetHandOffset - currentHandOffset) * smoothing;
+      currentPressProgress +=
+        (targetPressProgress - currentPressProgress) * smoothing;
+
+      hero.style.setProperty("--hand-press", `${currentHandOffset}px`);
+      hero.style.setProperty("--press-progress", `${currentPressProgress}`);
+      hero.toggleAttribute("data-button-pressed", currentPressProgress >= 0.42);
+      previousTime = time;
+
+      const isMoving =
+        Math.abs(targetHandOffset - currentHandOffset) > 0.05 ||
+        Math.abs(targetPressProgress - currentPressProgress) > 0.002;
+
+      frame = isMoving ? window.requestAnimationFrame(renderPress) : 0;
+    };
+
+    const scheduleRender = () => {
+      if (!frame) {
+        previousTime = performance.now();
+        frame = window.requestAnimationFrame(renderPress);
+      }
     };
 
     const onScroll = () => {
-      if (!frame) frame = window.requestAnimationFrame(updatePress);
+      updateScrollTargets();
+      scheduleRender();
     };
 
-    updatePress();
+    const onPointerMove = (event: PointerEvent) => {
+      if (event.pointerType === "touch") return;
+
+      const bounds = button.getBoundingClientRect();
+      const horizontalDistance = Math.max(
+        bounds.left - event.clientX,
+        0,
+        event.clientX - bounds.right,
+      );
+      const verticalDistance = Math.max(
+        bounds.top - event.clientY,
+        0,
+        event.clientY - bounds.bottom,
+      );
+      const distance = Math.hypot(horizontalDistance, verticalDistance);
+
+      pointerInteraction = 1 - clampProgress((distance - 24) / 120);
+      updateCombinedTargets();
+      scheduleRender();
+    };
+
+    const onPointerLeave = () => {
+      pointerInteraction = 0;
+      updateCombinedTargets();
+      scheduleRender();
+    };
+
+    updateScrollTargets();
+    currentHandOffset = targetHandOffset;
+    currentPressProgress = targetPressProgress;
+    hero.style.setProperty("--hand-press", `${currentHandOffset}px`);
+    hero.style.setProperty("--press-progress", `${currentPressProgress}`);
+    hero.toggleAttribute("data-button-pressed", currentPressProgress >= 0.42);
     window.addEventListener("scroll", onScroll, { passive: true });
+    hero.addEventListener("pointermove", onPointerMove, { passive: true });
+    hero.addEventListener("pointerleave", onPointerLeave);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      hero.removeEventListener("pointermove", onPointerMove);
+      hero.removeEventListener("pointerleave", onPointerLeave);
+      hero.removeAttribute("data-button-pressed");
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);
@@ -59,27 +155,29 @@ export default function Home() {
             <p>Push Your Limit</p>
           </div>
 
-          <Image
-            className="hero__city"
-            src="/assets/city-park-landing-hero-2x.webp"
-            alt="Ilustrasi taman hijau di tengah gedung perkotaan"
-            width={2974}
-            height={2116}
-            priority
-            quality={100}
-            sizes="(min-width: 1440px) 1440px, 100vw"
-          />
-
-          <div className="press-scene">
+          <div className="hero__illustration">
             <Image
-              className="press-scene__hand"
+              className="hero__city"
+              src="/assets/city-park-landing-hero-ultrawide.webp"
+              alt="Ilustrasi taman hijau di tengah gedung perkotaan"
+              width={1774}
+              height={887}
+              priority
+              quality={100}
+              sizes="100vw"
+            />
+
+            <Image
+              className="hero__hand"
               src="/assets/cartoon-hand.png"
               alt="Tangan kartun yang mengarah ke tombol download"
               width={1246}
               height={760}
               priority
             />
+          </div>
 
+          <div className="hero__cta">
             <ThreeDButton
               id="download"
               href="#live-beta"
@@ -87,14 +185,22 @@ export default function Home() {
               frontLabel="Live Beta"
             />
           </div>
-
-          <p className="hero__tagline">Untuk kamu yang mengejar mimpi</p>
-
-          <a className="scroll-cue" href="#how-to-play" aria-label="Lihat bagian berikutnya">
-            <span>Scroll untuk menekan</span>
-            <span aria-hidden="true">↓</span>
-          </a>
         </div>
+      </section>
+
+      <p className="hero__tagline">Untuk kamu yang mengejar mimpi</p>
+
+      <section className="demo-section" aria-label="Demo Produk">
+        <div className="demo-card" id="demo-video">
+          <div className="demo-card__placeholder">
+            <span className="demo-card__play-icon" aria-hidden="true">▶</span>
+            <p>Product Demo Video</p>
+          </div>
+        </div>
+
+        <h2 className="demo-section__title">
+          Diciptakan untuk orang-orang yang hidup dengan impian mereka
+        </h2>
       </section>
 
       <section className="intro" id="how-to-play">
