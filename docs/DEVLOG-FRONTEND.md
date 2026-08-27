@@ -870,4 +870,15 @@
 
 - Placing header controls in fixed top corners frees up ~80px of vertical space, allowing the entire form step (question text, option cards, and bottom `Lanjut →` navigation buttons) to fit 100% inside the viewport without requiring vertical scrolling.
 
+## 2026-08-27 — Flexible Environment Variable Detection for Supabase Client
+
+### The Change
+
+- Updated `src/lib/supabase.ts` to automatically detect any variations of Supabase environment variable names in `.env` or `.env.local` (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_ANON_KEY`, `SUPABASE_PUBLISH_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_SECRET_KEY`).
+
+### The Reasoning
+
+- Allows the app to consume whatever key naming convention is configured in the environment without requiring code modifications.
+
+
 
