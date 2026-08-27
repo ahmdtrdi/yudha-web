@@ -24,3 +24,13 @@ At the completion of a task, you must ask what my role is and check if `docs/DEV
 
 **Operational Rule**
 - After every interaction that includes a code change, you must append an entry to `docs/DEVLOG-*.md` before finishing. Do not just suggest it. If you truly cannot write to the file (permissions/conflicts), provide the exact snippet the next person should paste. This is mandatory and should be treated as a checklist item for every task.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

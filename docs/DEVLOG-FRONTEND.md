@@ -834,3 +834,40 @@
 ### The Tech Debt
 
 - The optical gap may need one final adjustment after the definitive brand font replaces Arial.
+
+## 2026-08-27 — Minimalist Transparent Typeform Feedback System & Supabase Integration
+
+### The Change
+
+- Created a dedicated `/feedback` page route featuring a Typeform-style multi-step form (1–2 questions per step) with smooth step navigation and progress bar tracking.
+- Optimized `public/assets/Hero Background Watercolor.png` (5.7 MB) into `Hero Background Watercolor.webp` (524 KB, >90% size reduction) and used it as a transparent, full-viewport background overlay (`opacity-90` + subtle backdrop blur).
+- Redesigned form layout to be transparent and floating over the watercolor background (no heavy white box wrapper), with translucent option pills (`bg-white/60 backdrop-blur-md border-1.5 border-[#090909]/20`), Typeform key badges (`[ A ]`, `[ B ]`, `[ C ]`), and polished Indonesian copywriting based on `docs/feedback_form.md`.
+- Styled navigation buttons (`← Kembali`, `Lanjut →`, `Kirim Feedback 🎉`) using the landing page's signature 3D push-button design system (`.push-button`, `.push-button--lime`, `.push-button--blue`).
+- Implemented strict forward-step validation: "Lanjut" is disabled and blocked if required question(s) in the current step are unanswered.
+- Created `/api/feedback` API route and Supabase client integration (`src/lib/supabase.ts`) supporting `feedback_responses` database persistence with graceful fallback logging when environment variables are not yet configured.
+- Provided `supabase_schema.sql` containing full DDL, RLS policies, and JSONB payload storage for Supabase setup.
+
+### The Reasoning
+
+- Transparent floating options let the watercolor artwork stay fully visible while giving the form a lightweight, authentic Typeform experience.
+- WebP compression reduces initial asset payload from 5.7MB to ~500KB for lightweight page rendering.
+- Reusing `.push-button` styles preserves the brand identity established on the landing page.
+- Graceful API fallback ensures user flow never breaks during testing even before Supabase env vars are set.
+
+### The Tech Debt
+
+- Once production Supabase project is active, add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to `.env.local` and execute `supabase_schema.sql` in the Supabase SQL editor.
+
+## 2026-08-27 — Corner Header Positioning & Viewport Height Fitting Refinement
+
+### The Change
+
+- Moved `Yudha` brand logo and `✕ Keluar` button to fixed absolute top corners (`fixed top-4 left-4` & `fixed top-4 right-4`), removing header height overhead from the document flow.
+- Tightened vertical margins and component spacing across all 9 form steps, reducing container padding, question title size (`text-base sm:text-lg`), option card padding (`p-2.5`), and input row counts.
+- Compacted `FormProgressBar` height and bottom spacing (`mb-4`).
+
+### The Reasoning
+
+- Placing header controls in fixed top corners frees up ~80px of vertical space, allowing the entire form step (question text, option cards, and bottom `Lanjut →` navigation buttons) to fit 100% inside the viewport without requiring vertical scrolling.
+
+

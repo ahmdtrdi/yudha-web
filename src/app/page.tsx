@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { ThreeDButton } from "@/components/ThreeDButton";
+
 
 const clampProgress = (progress: number) => Math.min(Math.max(progress, 0), 1);
 const easeInOut = (progress: number) => progress * progress * (3 - 2 * progress);
@@ -167,6 +169,9 @@ export default function Home() {
               <a className="push-button push-button--lime" href="#faq">
                 FAQ
               </a>
+              <Link className="push-button push-button--lime" href="/feedback">
+                Feedback
+              </Link>
             </div>
 
             <a className="push-button push-button--blue navbar__download" href="#download">
