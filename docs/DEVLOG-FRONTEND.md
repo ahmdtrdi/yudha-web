@@ -715,9 +715,30 @@
 
 - Navigation copy currently fits down to 320px using compact controls. Longer localization strings will require a menu treatment rather than further shrinking touch targets.
 
-## 2026-08-21 — Mobile hand-to-CTA separation
+
+## 2026-08-29 — Single Shared Container & Exact Vertical Grid Alignment
 
 ### The Change
+
+- Re-architected layout structure in `src/components/onboarding/OnboardingHero.tsx` to place both the `<header>` and hero content block inside a single shared container (`w-full max-w-[1340px] mx-auto px-6 sm:px-10 lg:px-14`).
+- Aligned the left edge of the brand logo (`logo-yudha.svg`), `Open Beta` tag, headline, subtitle, email input box, and disclaimer sub-text along the exact same vertical left grid line.
+- Aligned the right edge of the `Download` button with the container's right boundary margin.
+
+### The Reasoning
+
+- Follows the user's annotated red layout guide lines to guarantee 100% exact vertical grid alignment across all hero section elements.
+
+### The Tech Debt
+
+- Onboarding hero section complete and verified. Ready for next section slicing.
+
+
+
+
+
+
+
+# The Change
 
 - Raised the resting hand and returned the mobile CTA to non-negative flow spacing, creating a clear initial gap between both elements.
 - Reduced scroll-driven hand travel to 65% on viewports up to 760px so the pressed state touches the CTA without excessive overlap.
@@ -879,6 +900,259 @@
 ### The Reasoning
 
 - Allows the app to consume whatever key naming convention is configured in the environment without requiring code modifications.
+
+
+## 2026-08-29 — GAT Aptitude Cartesius Map Section Slicing
+
+### The Change
+
+- Created `src/components/onboarding/CartesiusMapSection.tsx` component implementing the GAT Aptitude Map section.
+- Added section title **"Satu kemampuan, ratusan pintu terbuka"**, subtitle, embedded high-resolution `/assets/cartesius-map.png` diagram, and footer explanatory caption using Plus Jakarta Sans typography.
+- Integrated `CartesiusMapSection` into `src/app/page.tsx` directly following `OnboardingHero`.
+
+### The Reasoning
+
+- Reproduces the design specification accurately with responsive typography, proper spacing, centered alignment, and Plus Jakarta Sans font stack.
+
+### The Tech Debt
+
+- Section complete and verified with production TypeScript build.
+
+
+## 2026-08-29 — Cartesius Map Section Spacing & Typography Refactoring
+
+### The Change
+
+- Refactored heading `h2` font size (`text-2xl sm:text-3xl lg:text-[38px]`) and expanded `max-w-[960px]` in `src/components/onboarding/CartesiusMapSection.tsx` so **"Satu kemampuan, ratusan pintu terbuka"** stays on one single line on desktop/tablet as in Figma design.
+- Adjusted subtitle font size (`text-sm sm:text-base md:text-[17px]`), font weight (`font-normal`), and max-width (`max-w-[680px]`) so text breaks into two clean, elegant lines.
+- Reduced diagram max-width from `960px` to `820px` to prevent visual overcrowding.
+- Increased component vertical margins (`mb-16 sm:mb-20 lg:mb-24`) and section padding (`py-20 sm:py-28 lg:py-36`) for an airy, premium layout matching the Figma artboard spacing.
+
+### The Reasoning
+
+- Fixes text line-wrapping on the title and provides generous breathing room between typography, diagram, and captions as requested.
+
+### The Tech Debt
+
+- Verified and clean production build.
+
+
+## 2026-08-29 — GAT Card Catalog Section Slicing & Interactive Sleeve Effect
+
+### The Change
+
+- Created `src/components/onboarding/GatCardCatalogSection.tsx` component implementing the GAT question type card catalog section.
+- Added section title **"Satu Aplikasi, Semua Jenis Soal GAT"**, subtitle, 2-row catalog grid layout (Row 1: 4 cards [Numerik, Verbal, Logis, Figural], Row 2: 3 cards [Akhlak, TKP, TWK]).
+- Built translucent sleeve/pocket elements (`bg-white/40 backdrop-blur-[3px] border border-stone-200/70`) at the base of each card slot.
+- Implemented smooth hover catalog pulling motion (`-translate-y-8 sm:-translate-y-10 group-hover:scale-[1.02]`) where card artwork pulls upward out of the clear sleeve on hover.
+- Integrated `GatCardCatalogSection` into `src/app/page.tsx` directly following `CartesiusMapSection`.
+
+### The Reasoning
+
+- Follows the user's design screenshot and interactions specifications, maintaining spacious component margins and Plus Jakarta Sans font stack.
+
+### The Tech Debt
+
+- Verified and clean production build.
+
+
+## 2026-08-29 — Glass Sleeve Pocket Alignment & Catalog Pull Motion Refactoring
+
+### The Change
+
+- Refactored translucent sleeve pocket (`.CatalogCard`) in `src/components/onboarding/GatCardCatalogSection.tsx` to match the Cofounder reference design image 2.
+- Applied subtle glassmorphism styling (`bg-stone-100/30 backdrop-blur-[5px] border border-stone-200/50 rounded-[22px] shadow-[0_8px_20px_rgba(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,0.9)]`) with clean inner top-lip highlight reflection.
+- Increased card slot vertical height (`h-[250px] sm:h-[290px] md:h-[320px]`) and spring easing (`cubic-bezier(0.25, 1, 0.5, 1)` duration 500ms).
+- Enhanced catalog hover pull distance (`group-hover:-translate-y-16 sm:-translate-y-20 md:-translate-y-24`) so the card cleanly pulls up out of the glass sleeve pocket upon hover.
+
+### The Reasoning
+
+### The Tech Debt
+
+- Verified and clean production build.
+
+
+## 2026-08-29 — Sleeve Pocket Geometry & Translucency Correction
+
+### The Change
+
+- Updated sleeve pocket geometry in `src/components/onboarding/GatCardCatalogSection.tsx` to set top corners as square (`rounded-t-none`) while keeping bottom corners rounded (`rounded-b-2xl sm:rounded-b-[20px]`).
+- Reduced sleeve pocket height from `40%` to `27%` so it only covers the shallow bottom portion of the card rather than half the card.
+- Extended sleeve width slightly (`-inset-x-2 sm:-inset-x-2.5`) matching the Figma design reference.
+- Removed heavy backdrop blur (`backdrop-blur-[2px] bg-white/45`) so card artwork behind the sleeve remains crisp, clear, and visible.
+
+### The Reasoning
+
+- Faithfully matches the annotated Figma design screenshot where sleeve pocket top edges are flat with square corners and cover only ~27% of the card base.
+
+### The Tech Debt
+
+- Verified and clean production build.
+
+
+## 2026-08-29 — 800px Grid Container Cap & Compact Sleeve Proportions Refactoring
+
+### The Change
+
+- Capped grid container max-width to `800px` (`max-w-[800px]`) in `src/components/onboarding/GatCardCatalogSection.tsx` matching the exact `786px` bounding box from Figma design image 1.
+- Tightened grid gap (`gap-4 sm:gap-5 md:gap-6`) between cards so items sit closely and legibly together without spreading across the full viewport width.
+- Compacted sleeve pocket height to `21%` (`h-[21%]`) so it sits lower at the bottom base of the card slot without obscuring card graphics.
+- Tightened sleeve width extension (`-inset-x-1 sm:-inset-x-1.5`) so the sleeve fits snugly around the card silhouette.
+
+### The Reasoning
+
+- Eliminates large empty gaps between cards on wide desktop screens and aligns exact card-to-sleeve visual proportions with Figma frame metrics (`786px × 899px`).
+
+### The Tech Debt
+
+- Verified and clean production build.
+
+
+## 2026-08-29 — Snug Sleeve Width Alignment (inset-x-0)
+
+### The Change
+
+- Removed horizontal sleeve extensions (`-inset-x-1.5`) in `src/components/onboarding/GatCardCatalogSection.tsx` and applied `inset-x-0`.
+- Aligned sleeve width to match 100% of card width so the pocket fits snug and flush against the card frame without sticking out on the sides.
+- Maintained capped `786px` max-width grid container and `h-[22%]` shallow bottom sleeve height.
+
+### The Reasoning
+
+- Reproduces the slim, snug catalog pocket silhouette from the Figma design artboard.
+
+### The Tech Debt
+
+- Verified and clean production build.
+
+
+## 2026-08-29 — Flush Sleeve Width Alignment (left-[5%] right-[5%])
+
+### The Change
+
+- Updated sleeve pocket width positioning in `src/components/onboarding/GatCardCatalogSection.tsx` to `left-[5%] right-[5%]`.
+- Aligned sleeve pocket left & right edges flush with the rendered PNG card artwork silhouette, completely eliminating side protrusion wings caused by container-level `object-contain` spacing.
+- Retained shallow `23%` height and square top corners (`rounded-t-none`).
+
+### The Reasoning
+
+- Fixes the side protrusion wings highlighted in the user's annotated red-circle screenshot and matches the exact flush sleeve alignment from Figma design image 2.
+
+### The Tech Debt
+
+- Verified and clean production build.
+
+
+## 2026-08-29 — New Sections: "gratis. seru. efektif" & "Latihan tiap hari"
+
+### The Change
+
+- Created `src/components/onboarding/GratisSeruEfektifSection.tsx`: Light blue (`#9DD8F5`) background section with bold heading, subtitle, and bordered video demo card placeholder (thick border + bottom shadow to match Figma card style).
+- Created `src/components/onboarding/LatihanTiapHariSection.tsx`: Interactive feature showcase with 3 tabs (Arena PvP, Analisis Performa, AI Interview), phone mockup, and dynamic description. Uses `useState` for tab switching.
+- Updated `src/app/page.tsx` to render both new sections after `GatCardCatalogSection`.
+
+### The Reasoning
+
+- Both sections are direct Figma-to-code slicing following the design system already established (Plus Jakarta Sans, consistent heading sizes, compact spacing).
+- Feature showcase card uses the same thick-border-with-bottom-shadow treatment as the video card to maintain visual consistency across sections.
+- Phone mockup is CSS-only (no image asset needed), matching the wireframe-style placeholder in the design.
+
+### The Tech Debt
+
+- Video demo card and phone screen are placeholders — need actual video embed and screenshot assets when available.
+- Verified and clean production build.
+
+
+## 2026-08-29 — GratisSeruEfektif & LatihanTiapHari Figma Alignment
+
+### The Change
+
+- **GratisSeruEfektifSection.tsx**: Set heading to 48px, subtitle to 16px per Figma. Added line break after first sentence. Applied left+bottom shadow (`-4px_6px_0`). Tuned inner container `max-w-[820px]` and subtitle `max-w-[740px]` for 3-line wrapping.
+- **LatihanTiapHariSection.tsx**: Complete rewrite based on 8-point Figma diff analysis:
+  1. Description text moved to right-side only (removed duplicate from left).
+  2. Left column: only tab labels, vertically centered.
+  3. Phone mockup enlarged (170px × 340px on desktop).
+  4. CSS Grid `grid-cols-[1fr_auto_1fr]` for balanced 3-column layout.
+  5. Left+bottom shadow matching video card style.
+  6. Section padding tightened.
+
+### The Reasoning
+
+- Systematic visual comparison against Figma prototype (MacBook Air preview) revealed 8 distinct differences. Addressed all in a single rewrite.
+
+### The Tech Debt
+
+- Phone screen and video card are still placeholders.
+- Verified and clean production build.
+
+
+## 2026-08-29 — FAQ Section
+
+### The Change
+
+- Created `src/components/onboarding/FaqSection.tsx`: 2-column layout with "FAQ" label + "Questions, answered" heading on the left, and accordion FAQ items on the right.
+- 4 FAQ items with real Yudha-specific Q&A content (gratis, soal GAT, Arena PvP, AI Interview).
+- Smooth expand/collapse animation with rotating "+" icon (45deg on open).
+- Updated `src/app/page.tsx` to render `FaqSection` after `LatihanTiapHariSection`.
+
+### The Reasoning
+
+- Direct Figma-to-code slicing matching the 2-column FAQ layout from the prototype.
+- Used real product Q&A instead of lorem ipsum placeholders.
+
+### The Tech Debt
+
+- Verified and clean production build.
+
+
+## 2026-08-29 — Landing Page Section Spacing & Slicing Alignment Fix
+
+### The Change
+
+- Refactored `LatihanTiapHariSection.tsx`: Removed artificial `120vh` scroll height and `min-h-screen` sticky padding container that left huge blank gaps when scrolling down the page. Applied standard vertical padding (`py-12 sm:py-16 lg:py-20`).
+- Refactored `FaqSection.tsx`: Updated grid layout container width to `max-w-[960px]` matching site grid and normalized vertical padding to `py-12 sm:py-16 lg:py-20`.
+- Refactored `CtaSection.tsx`: Adjusted banner height from `520px` to a compact `360px`–`440px`, aligned container width to `max-w-[960px]`, and updated the CTA button styling from a pitch-black box to Figma's signature blue pill button (`nav-pill-blue`).
+- Harmonized section padding across `CartesiusMapSection.tsx`, `GatCardCatalogSection.tsx`, and `GratisSeruEfektifSection.tsx` for consistent, elegant vertical rhythm matching Figma.
+
+### The Reasoning
+
+- Excessive section scroll height and oversized padding created unnatural vertical whitespace gaps between sections (especially above FAQ and CTA banner). Standardizing paddings and container widths ensures the sliced landing page feels tight, neat, and well-structured per Figma design specifications.
+
+### The Tech Debt
+
+- Verified and clean production build.
+
+
+## 2026-08-30 — Dedicated Modular Footer Section Slicing
+
+### The Change
+
+- Created `src/components/onboarding/FooterSection.tsx` component to slice the landing page footer per Figma design specs.
+- Structured outer container with `border-t-[1.5px] border-x-[1.5px] border-[#242424] rounded-t-[28px] sm:rounded-t-[36px] lg:rounded-t-[44px]` matching card design system.
+- Embedded `/assets/logo-footer-yudha.svg` for brand logo on the top left.
+- Built 4 responsive navigation link columns (Company, Resources, Legal, Connect) on the top right.
+- Rendered giant "YUDHA" wordmark at the bottom with responsive viewport-relative sizing (`text-[20vw]` to `text-[270px]`) and tight `leading-[0.72]`.
+- Updated `src/app/page.tsx` to render `FooterSection` after `CtaSection`.
+
+### The Reasoning
+
+- Isolating the footer into a dedicated component in `src/components/onboarding/` keeps the codebase clean, modular, and easy to maintain.
+- Preserved exact Figma layout, typography weights, column hierarchy, and visual spacing between sections.
+
+### The Tech Debt
+
+- Navigation links are currently anchors (`href="#"`). Connect with real internal/external routes when available.
+- Verified and clean production build.
+
+
+
+
+
+
+
+
+
+
+
 
 
 

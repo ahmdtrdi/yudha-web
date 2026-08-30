@@ -2,9 +2,9 @@
 
 :root {
   --ink: #090909;
-  --lime: #e3ec35;
-  --blue: #0c70da;
-  --paper: #fffefa;
+  --lime: #e2ef44;
+  --blue: #0560fd;
+  --paper: #f4f6f8;
 }
 
 * {
@@ -19,9 +19,58 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-plus-jakarta-sans), 'Plus Jakarta Sans', sans-serif;
   overflow-x: hidden;
 }
+
+/* Custom Neobrutalist Pill Buttons */
+.nav-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 24px;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 3px 3.5px 0px #000000;
+}
+
+.nav-pill-lime {
+  background-color: #e2ef44;
+  color: #000000;
+}
+
+.nav-pill-lime:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2.5px 0px #000000;
+  background-color: #e9f548;
+}
+
+.nav-pill-blue {
+  background-color: #0560fd;
+  color: #ffffff;
+}
+
+.nav-pill-blue:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2.5px 0px #000000;
+  background-color: #1a6ffc;
+}
+
+.onboarding-hero-bg {
+  background-image: url('/assets/Gambar Hero Landing Page.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+
+
+
+
 
 a {
   color: inherit;
