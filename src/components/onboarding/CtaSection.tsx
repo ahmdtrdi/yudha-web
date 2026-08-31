@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export function CtaSection() {
   return (
-    <section className="w-full px-8 sm:px-10 lg:px-8 py-8 sm:py-12 lg:py-[60px] font-sans bg-white flex justify-center">
-      <div className="relative w-full max-w-[1280px] rounded-[28px] sm:rounded-[36px] overflow-hidden min-h-[720px] sm:min-h-[400px] lg:min-h-[680px] flex flex-col items-center justify-start">
+    <section className="w-full px-4 sm:px-8 lg:px-8 py-8 sm:py-12 lg:py-[60px] font-sans bg-white flex justify-center">
+      <div className="relative w-full max-w-[1280px] rounded-[24px] sm:rounded-[36px] overflow-hidden min-h-[420px] sm:min-h-[480px] lg:min-h-[640px] flex flex-col items-center justify-start">
 
         {/* Background Image */}
         <Image
@@ -29,13 +30,13 @@ export function CtaSection() {
             akses soal dimana saja, kapan saja
           </p>
 
-          {/* CTA Button - Matches Figma Blue Button */}
-          <a
-            href="#"
+          {/* CTA Button - Matches Figma Blue Button, links to Open Beta Form */}
+          <Link
+            href="/open-beta"
             className="nav-pill-btn nav-pill-blue px-8 sm:px-10 py-3 sm:py-3.5 text-sm sm:text-base font-extrabold cursor-pointer"
           >
             Daftar
-          </a>
+          </Link>
 
         </div>
 

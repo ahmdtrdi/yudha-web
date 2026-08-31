@@ -84,18 +84,18 @@ export function LatihanTiapHariSection() {
 
           {/* Feature Showcase Card */}
           <div className="w-full border-[2.5px] border-stone-900 rounded-2xl sm:rounded-3xl bg-white shadow-[-4px_6px_0_rgba(0,0,0,0.9)] overflow-hidden">
-            <div className="grid grid-cols-[1fr_auto_1fr] items-center min-h-[1080px] sm:min-h-[380px]">
+            <div className="flex flex-col md:grid md:grid-cols-[1fr_auto_1fr] items-center min-h-auto md:min-h-[380px]">
 
-              {/* Left: Feature Tab Labels */}
-              <div className="flex flex-col justify-center gap-3 px-6 sm:px-8 lg:px-10 py-8">
+              {/* Left/Top: Feature Tab Labels */}
+              <div className="w-full flex flex-row md:flex-col justify-center md:justify-center gap-2 sm:gap-3 px-4 sm:px-8 lg:px-10 py-5 sm:py-8 border-b md:border-b-0 border-stone-100 overflow-x-auto">
                 {FEATURES.map((feature, index) => (
                   <button
                     key={feature.id}
                     onClick={() => setActiveIndex(index)}
-                    className={`text-left text-base sm:text-lg lg:text-xl font-semibold transition-colors duration-300 cursor-pointer ${
+                    className={`text-center md:text-left text-xs sm:text-base lg:text-xl font-semibold transition-colors duration-300 cursor-pointer whitespace-nowrap md:whitespace-normal px-2 py-1 rounded-lg ${
                       activeIndex === index
-                        ? "text-stone-950"
-                        : "text-stone-300 hover:text-stone-400"
+                        ? "text-stone-950 bg-stone-100 md:bg-transparent"
+                        : "text-stone-400 md:text-stone-300 hover:text-stone-600 md:hover:text-stone-400"
                     }`}
                   >
                     {feature.label}
@@ -104,18 +104,18 @@ export function LatihanTiapHariSection() {
               </div>
 
               {/* Center: Phone Mockup */}
-              <div className="flex items-center justify-center px-2 py-6">
-                <div className="relative w-[130px] sm:w-[150px] lg:w-[170px] h-[260px] sm:h-[300px] lg:h-[340px] border-[3px] border-stone-900 rounded-[26px] sm:rounded-[30px] bg-white overflow-hidden shadow-sm">
-                  <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-16 h-[22px] bg-stone-900 rounded-full z-10" />
+              <div className="flex items-center justify-center px-2 py-4 sm:py-6">
+                <div className="relative w-[110px] sm:w-[150px] lg:w-[170px] h-[220px] sm:h-[300px] lg:h-[340px] border-[3px] border-stone-900 rounded-[22px] sm:rounded-[30px] bg-white overflow-hidden shadow-sm">
+                  <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-14 sm:w-16 h-[18px] sm:h-[22px] bg-stone-900 rounded-full z-10" />
                   <div className="w-full h-full bg-stone-50" />
                 </div>
               </div>
 
-              {/* Right: Active Feature Description */}
-              <div className="flex items-center px-6 sm:px-8 lg:px-10 py-8 min-h-[120px]">
+              {/* Right/Bottom: Active Feature Description */}
+              <div className="w-full flex items-center justify-center md:justify-start px-5 sm:px-8 lg:px-10 py-5 sm:py-8 min-h-[90px] sm:min-h-[120px] bg-stone-50 md:bg-transparent">
                 <p
                   key={active.id}
-                  className="text-xs sm:text-[13px] lg:text-sm text-stone-500 leading-relaxed text-left animate-fadeIn"
+                  className="text-xs sm:text-[13px] lg:text-sm text-stone-600 md:text-stone-500 leading-relaxed text-center md:text-left animate-fadeIn max-w-[340px]"
                 >
                   {active.description}
                 </p>

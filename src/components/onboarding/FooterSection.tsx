@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export function FooterSection() {
   return (
@@ -10,7 +11,7 @@ export function FooterSection() {
         <div className="bg-white border-t-[1.5px] border-x-[1.5px] border-[#242424] rounded-t-[28px] sm:rounded-t-[36px] lg:rounded-t-[40px] pt-4 sm:pt-8 lg:pt-10 pb-0 overflow-hidden flex flex-col justify-between">
 
           {/* Top content: Brand logo on left, 4 nav columns on right */}
-          <div className="pl-24 lg:pl-32 pr-24 lg:pr-20 flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12">
+          <div className="px-6 sm:px-12 md:pl-20 md:pr-16 lg:pl-32 lg:pr-20 flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12">
 
             {/* Left Brand Logo */}
             <div className="flex-shrink-0">
@@ -32,9 +33,9 @@ export function FooterSection() {
                 <h3 className="text-xs sm:text-sm font-medium text-stone-400">
                   Company
                 </h3>
-                <a href="#" className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors">
+                <Link href="/about" className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors">
                   About
-                </a>
+                </Link>
                 <a href="#" className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors">
                   Careers
                 </a>
@@ -48,9 +49,9 @@ export function FooterSection() {
                 <h3 className="text-xs sm:text-sm font-medium text-stone-400">
                   Resources
                 </h3>
-                <a href="#" className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors">
+                <Link href="/contact" className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors">
                   Contact us
-                </a>
+                </Link>
                 <a href="#" className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors">
                   Help center
                 </a>
