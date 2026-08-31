@@ -8,11 +8,10 @@ import { useState, useEffect, Suspense } from "react";
 function OpenBetaContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialEmail = searchParams.get("email") || "";
 
   const [formData, setFormData] = useState({
     name: "",
-    email: initialEmail,
+    email: "",
     whatsapp: "",
     goal: "",
   });
@@ -21,9 +20,29 @@ function OpenBetaContent() {
   const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
-    const emailParam = searchParams.get("email");
-    if (emailParam) {
-      setFormData((prev) => ({ ...prev, email: emailParam }));
+    let prefilledEmail = "";
+
+    // 1. Try reading from sessionStorage (Secure & Clean URL)
+    try {
+      const stored = sessionStorage.getItem("open_beta_email");
+      if (stored) {
+        prefilledEmail = stored;
+        sessionStorage.removeItem("open_beta_email");
+      }
+    } catch {
+      // Ignore storage errors
+    }
+
+    // 2. Fallback to URL searchParams if passed via query string
+    if (!prefilledEmail) {
+      const emailParam = searchParams.get("email");
+      if (emailParam) {
+        prefilledEmail = emailParam;
+      }
+    }
+
+    if (prefilledEmail) {
+      setFormData((prev) => ({ ...prev, email: prefilledEmail }));
     }
   }, [searchParams]);
 

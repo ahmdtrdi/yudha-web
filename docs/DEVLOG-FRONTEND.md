@@ -1297,8 +1297,24 @@
 
 ### The Tech Debt
 
-- Optional: Add `NEXT_PUBLIC_WA_GROUP_URL` to Vercel Environment Variables if group invite links change in the future.
-- Updated `supabase_schema.sql` to disable RLS on public web form tables (`open_beta_registrations`, `contact_submissions`, `feedback_responses`) ensuring 100% successful inserts for anonymous form visitors.
+
+
+## 2026-08-31 — Secure Client Email Prefilling (SessionStorage)
+
+### The Change
+
+- Refactored `src/components/onboarding/OnboardingHero.tsx` to store user email input in `sessionStorage` (`open_beta_email`) before navigating to `/open-beta`, eliminating the raw email query parameter from the URL.
+- Updated `src/app/open-beta/page.tsx` to retrieve and populate the prefilled email from `sessionStorage` on mount, automatically cleaning it up once read, while retaining `searchParams` as a fallback.
+
+### The Reasoning
+
+- Exposing plain text email addresses in URL query parameters (`/open-beta?email=...`) leaks PII in browser history, HTTP referrer headers, and analytics tracking logs.
+- Using `sessionStorage` provides a clean URL (`https://www.yudha.fun/open-beta`) while maintaining seamless automatic prefilling of the email input field.
+
+### The Tech Debt
+
+- None. Fully compatible with both direct URL parameters and client storage navigation.
+
 
 
 

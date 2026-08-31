@@ -10,11 +10,15 @@ export function OnboardingHero() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
-      router.push(`/open-beta?email=${encodeURIComponent(email.trim())}`);
-    } else {
-      router.push("/open-beta");
+    const trimmed = email.trim();
+    if (trimmed) {
+      try {
+        sessionStorage.setItem("open_beta_email", trimmed);
+      } catch {
+        // Fallback for storage restricted environments
+      }
     }
+    router.push("/open-beta");
   };
 
   return (
