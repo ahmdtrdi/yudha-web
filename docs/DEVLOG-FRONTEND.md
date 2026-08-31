@@ -1261,9 +1261,29 @@
 - The chibi character illustrations sit at the bottom of the tree in `/assets/hero-43-form.png`. Using `object-center` cropped the characters at the bottom on portrait phone viewports.
 - Anchoring to `object-bottom` and increasing container height brings the entire chibi adventurer duo fully into the mobile frame without letterboxing or awkward clipping, while desktop viewports retain the crisp `lg:object-contain lg:object-left` alignment.
 
+
+
+## 2026-08-31 — Supabase Database Integration & Feedback Form Identity Update
+
+### The Change
+
+- Created and updated `supabase_schema.sql` to define 3 dedicated database tables for Supabase: `open_beta_registrations`, `contact_submissions`, and `feedback_responses`, complete with Row Level Security (RLS) policies.
+- Updated `src/lib/supabase.ts` to recognize `SUPABASE_PUBLISHABLE_KEY` from environment configuration.
+- Enhanced `src/app/feedback/page.tsx` by adding `name` and `email` input fields to Step 1, updating `FeedbackFormData` types, initial state, validation logic, and submit payload.
+- Updated `src/app/api/feedback/route.ts` to extract `name` and `email` from incoming feedback submissions and persist them to `feedback_responses`.
+- Verified API routes `/api/open-beta`, `/api/contact`, and `/api/feedback` to ensure seamless client-to-Supabase data persistence.
+
+### The Reasoning
+
+- Next.js App Router API Route Handlers act as a secure backend proxy server-side, eliminating the need to deploy a separate custom backend server.
+- Adding Name and Email to Step 1 of the feedback form ensures respondents are identified when submitting survey responses.
+- Enabling Row Level Security (RLS) on Supabase tables with public insert policies allows anonymous client submissions while restricting readout to authenticated admins.
+
 ### The Tech Debt
 
-- All pages compiled and verified with 100% clean production TypeScript build (`npm run build`).
+- Run `supabase_schema.sql` in Supabase SQL Editor dashboard to create the tables in production/staging environments.
+- Added `DROP POLICY IF EXISTS` and `ALTER TABLE ADD COLUMN IF NOT EXISTS` to ensure `supabase_schema.sql` is safe to run multiple times without 42710 duplicate policy errors.
+
 
 
 

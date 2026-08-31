@@ -6,6 +6,8 @@ export async function POST(request: Request) {
     const data = await request.json();
 
     const {
+      name,
+      email,
       q1_source,
       q2_reason,
       q3_tutorial_clarity,
@@ -28,6 +30,8 @@ export async function POST(request: Request) {
     } = data;
 
     const record = {
+      name: name ? name.trim() : null,
+      email: email ? email.trim() : null,
       q1_source: q1_source || null,
       q2_reason: q2_reason || null,
       q3_tutorial_clarity: q3_tutorial_clarity ? Number(q3_tutorial_clarity) : null,
