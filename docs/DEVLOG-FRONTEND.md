@@ -1144,6 +1144,144 @@
 - Verified and clean production build.
 
 
+## 2026-08-31 — Navbar Component Extraction & About Page Connection
+
+### The Change
+
+- Extracted the navigation bar into a standalone modular component [src/components/Navbar.tsx](src/components/Navbar.tsx).
+- Connected the "About" button to the `/about` route (`<Link href="/about">`), "How to Play" to `/#how-to-play`, "FAQ" to `/#faq`, and "Download" to `/#download`.
+- Updated [src/components/onboarding/OnboardingHero.tsx](src/components/onboarding/OnboardingHero.tsx) and [src/components/about/AboutHeroSection.tsx](src/components/about/AboutHeroSection.tsx) to reuse the unified `Navbar` component.
+
+### The Reasoning
+
+- Follows the DRY principle (Rule of Three) and Boy Scout Rule from AGENTS.md, eliminating duplicate header/navigation markup and ensuring consistent behavior and styling across the landing page and about page.
+
+### The Tech Debt
+
+- Completed and verified with zero build warnings or TypeScript issues.
+
+
+## 2026-08-31 — Team & Note from Founders Sections Slicing
+
+### The Change
+
+- Created [src/components/about/TeamSection.tsx](src/components/about/TeamSection.tsx):
+  - Added section title **"The People behind Yudha"**.
+  - Built a 4-column responsive grid featuring 4 team members (Ridho Aditya, Galnoel Rindengan, Regina George, Ahmad Triadi) with portrait placeholder rectangles (`aspect-[4/5] bg-[#d9d9d9]`), names, and sub-roles (Co-Founder, CEO/CTO/Product Lead/Business Lead).
+- Created [src/components/about/NoteFromFoundersSection.tsx](src/components/about/NoteFromFoundersSection.tsx):
+  - Built 2-column layout: Left column contains heading **"A note from the founders"** (2 lines) and signature neobrutalist **"Contact Us"** blue pill button (`nav-pill-blue`).
+  - Right column contains the 3-paragraph founder story/copy with `max-w-[560px]` and readable line-height.
+  - Added generous bottom padding (`pb-24 sm:pb-32 lg:pb-40`) to create breathing room before the site footer.
+- Updated [src/app/about/page.tsx](src/app/about/page.tsx) to compose the entire About Us page flow: `AboutHeroSection` ➔ `OurMissionSection` ➔ `TeamSection` ➔ `NoteFromFoundersSection` ➔ `FooterSection`.
+
+### The Reasoning
+
+- Reproduces the Figma design layout, visual rhythm, component spacing, and neobrutalist button styles accurately with modular component architecture.
+
+### The Tech Debt
+
+- Team photo placeholders will be updated with actual image assets when provided.
+- Verified and clean production build.
+
+
+## 2026-08-31 — Close / Thank You Page Slicing & Global Form Submission Redirection
+
+### The Change
+
+- Created [src/app/close/page.tsx](src/app/close/page.tsx) according to the "Close Page" Figma design:
+  - Top header:
+    - Left: Brand Logo [public/assets/logo-yudha.svg](public/assets/logo-yudha.svg).
+    - Right: Navigation link **"← Back to Website"** (`<Link href="/">`).
+  - Center content:
+    - Heading: **"Terima Kasih!<br />Responmu kami simpan!"** with bold typography and tight line-height.
+    - Artwork: [public/assets/hero-close.png](public/assets/hero-close.png) depicting the two chibi characters with fruit basket and books.
+  - Bottom footer:
+    - Centered small brand logo [public/assets/logo-footer-yudha.svg](public/assets/logo-footer-yudha.svg) (width ~115px).
+- Connected form submissions to redirect to `/close`:
+  - Updated [src/app/contact/page.tsx](src/app/contact/page.tsx): redirects to `/close` upon successful submission.
+  - Updated [src/app/open-beta/page.tsx](src/app/open-beta/page.tsx): redirects to `/close` upon successful submission.
+  - Updated [src/app/feedback/page.tsx](src/app/feedback/page.tsx): redirects to `/close` upon successful submission.
+
+### The Reasoning
+
+- Provides a unified, delightful post-submission experience across Contact Us, Open Beta Registration, and Feedback workflows matching Figma specifications.
+
+### The Tech Debt
+
+- Completed and verified with clean production build.
+
+
+## 2026-08-31 — Comprehensive Mobile & Tablet (iPad) Responsiveness Optimization
+
+### The Change
+
+- **Navbar (`src/components/Navbar.tsx`)**:
+  - Implemented responsive mobile drawer toggle menu with neobrutalist styling (`bg-white border-2 border-black rounded-2xl shadow-[4px_4.5px_0px_#000000]`).
+  - Added links for About, How to Play, FAQ, and Daftar Open Beta with automatic drawer close on navigation.
+  - Adjusted logo size fluidly across mobile (`h-11`), tablet (`h-14`), and desktop (`h-16`).
+
+- **Landing Page (`src/app/page.tsx` & `src/components/onboarding/`)**:
+  - **OnboardingHero**: Adapted email submission form into responsive flex column on mobile screens (`flex-col sm:flex-row`), ensuring inputs and buttons expand to full width without horizontal overflow.
+  - **LatihanTiapHariSection**: Converted 3-column desktop layout into a responsive mobile stacked column (`flex-col md:grid md:grid-cols-[1fr_auto_1fr]`), with scrollable tab pills, centered phone mockup, and dedicated description box.
+  - **CtaSection & FooterSection**: Polished banner height (`min-h-[420px] sm:min-h-[480px] lg:min-h-[640px]`), inner card padding (`px-6 sm:px-12 md:pl-20 md:pr-16 lg:pl-32 lg:pr-20`), and responsive typography for mobile and iPad.
+
+- **About Us Page (`src/app/about/page.tsx` & `src/components/about/`)**:
+  - **AboutHeroSection**: Enabled natural fluid text wrapping on mobile devices (`break-words` and `hidden sm:inline` line breaks) and scaled hero illustration safely.
+  - **TeamSection**: Adjusted team grid across viewport breakpoints (`grid-cols-2 sm:grid-cols-2 md:grid-cols-4`).
+
+- **Contact Us (`src/app/contact/page.tsx`) & Open Beta (`src/app/open-beta/page.tsx`)**:
+  - Transformed rigid `h-screen overflow-hidden` split layouts into responsive flex layouts (`min-h-screen lg:h-screen flex-col lg:flex-row overflow-y-auto lg:overflow-hidden`).
+  - Scaled left artwork heights (`h-[260px] sm:h-[360px] md:h-[440px] lg:h-screen`) ensuring all form inputs remain visible and fully scrollable on small mobile and iPad screens.
+
+- **Close / Thank You Page (`src/app/close/page.tsx`)**:
+  - Verified fluid typography and artwork responsiveness (`w-[240px] sm:w-[280px] md:w-[320px]`) without layout breaks.
+
+- **Feedback Page (`src/app/feedback/page.tsx`)**:
+  - Refined top padding and mobile spacing (`pt-16 pb-8 sm:py-6`) so floating navigation buttons never collide with progress bar and questions on compact mobile viewports.
+
+### The Reasoning
+
+- Guarantees complete cross-device usability across mobile phones (iPhone/Android <640px), tablets/iPads (640px–1024px), and desktops (>1024px) without horizontal scrolling, text clipping, or overflow bugs.
+
+### The Tech Debt
+
+- All pages compiled and verified with 100% clean production TypeScript build (`npm run build`).
+
+
+## 2026-08-31 — Mobile Hero Artwork Bottom Anchor & Height Refinement on Contact & Open Beta
+
+### The Change
+
+- Updated [src/app/contact/page.tsx](src/app/contact/page.tsx) and [src/app/open-beta/page.tsx](src/app/open-beta/page.tsx):
+  - Changed image positioning from `object-center` to `object-bottom` on mobile (`object-cover object-bottom lg:object-contain lg:object-left`).
+  - Increased mobile and tablet artwork container height from `h-[220px] sm:h-[300px] md:h-[380px]` to `h-[280px] sm:h-[340px] md:h-[400px] lg:h-screen`.
+
+### The Reasoning
+
+- The chibi character illustrations sit at the bottom of the tree in `/assets/hero-43-form.png`. Using `object-center` cropped the characters at the bottom on portrait phone viewports.
+- Anchoring to `object-bottom` and increasing container height brings the entire chibi adventurer duo fully into the mobile frame without letterboxing or awkward clipping, while desktop viewports retain the crisp `lg:object-contain lg:object-left` alignment.
+
+### The Tech Debt
+
+- All pages compiled and verified with 100% clean production TypeScript build (`npm run build`).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

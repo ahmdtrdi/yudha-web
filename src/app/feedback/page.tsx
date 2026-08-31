@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FormProgressBar } from "@/components/FormProgressBar";
 
 export interface FeedbackFormData {
@@ -56,11 +57,11 @@ const initialFormData: FeedbackFormData = {
 const TOTAL_STEPS = 9;
 
 export default function FeedbackPage() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FeedbackFormData>(initialFormData);
   const [showError, setShowError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const formatCurrency = (val: string) => {
     const raw = val.replace(/\D/g, "");
@@ -144,7 +145,7 @@ export default function FeedbackPage() {
         throw new Error("Gagal mengirim feedback");
       }
 
-      setIsSubmitted(true);
+      router.push("/close");
     } catch (err) {
       console.error(err);
       alert("Terjadi kesalahan saat mengirimkan feedback. Silakan coba lagi.");
@@ -238,20 +239,19 @@ export default function FeedbackPage() {
       </Link>
 
       {/* Centered Floating Main Form Container */}
-      <div className="relative z-10 w-full max-w-2xl mx-auto px-4 py-4 sm:py-6">
-        {!isSubmitted ? (
-          <div className="w-full">
-            <FormProgressBar
-              currentStep={step}
-              totalSteps={TOTAL_STEPS}
-              category={getCategoryName(step)}
-            />
+      <div className="relative z-10 w-full max-w-2xl mx-auto px-4 pt-16 pb-8 sm:py-6">
+        <div className="w-full">
+          <FormProgressBar
+            currentStep={step}
+            totalSteps={TOTAL_STEPS}
+            category={getCategoryName(step)}
+          />
 
-            {showError && (
-              <div className="mb-4 px-3 py-2 bg-red-500/90 text-white backdrop-blur border border-red-700 rounded-xl font-bold text-xs animate-bounce text-center shadow-[-2px_2px_0_#090909]">
-                ⚠️ Mohon isi pertanyaan yang wajib sebelum melanjutkan!
-              </div>
-            )}
+          {showError && (
+            <div className="mb-4 px-3 py-2 bg-red-500/90 text-white backdrop-blur border border-red-700 rounded-xl font-bold text-xs animate-bounce text-center shadow-[-2px_2px_0_#090909]">
+              ⚠️ Mohon isi pertanyaan yang wajib sebelum melanjutkan!
+            </div>
+          )}
 
             {/* STEP 1 */}
             {step === 1 && (
@@ -823,21 +823,6 @@ export default function FeedbackPage() {
               </div>
             </div>
           </div>
-        ) : (
-          /* COMPLETION SUCCESS CARD */
-          <div className="w-full max-w-xl mx-auto py-8 px-4 text-center animate-fadeIn">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#e3ec35] border-2 border-[#090909] flex items-center justify-center text-3xl shadow-[-3px_3px_0_#090909]">
-              🎉
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-black mb-3">Terima Kasih Banyak!</h1>
-            <p className="text-xs sm:text-sm text-gray-800 max-w-md mx-auto mb-6 font-medium leading-relaxed">
-              Masukan kamu sangat berharga untuk membawa YUDHA menjadi sarana latihan terbaik bagi pejuang CPNS & BUMN.
-            </p>
-            <Link href="/" className="push-button push-button--blue inline-flex items-center text-sm py-2.5 px-6">
-              Kembali ke Beranda
-            </Link>
-          </div>
-        )}
       </div>
     </main>
   );

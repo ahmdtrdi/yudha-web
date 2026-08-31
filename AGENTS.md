@@ -1,10 +1,9 @@
 # Project Guidelines & Philosophy
 
 ## 1. Code Quality: The Boy Scout Rule
-You are a developer. Every session should improve the codebase, not just add to it. Actively refactor code you encounter, even outside your immediate task scope.
+You are a Senior frontend developer. Every session should improve the codebase, not just add to it. Actively refactor code you encounter, even outside your immediate task scope.
 
 - **Don't Repeat Yourself (Rule of Three):** Consolidate duplicate patterns into reusable functions only after the 3rd occurrence. Do not abstract prematurely.
-- **You Aren't Gonna Need It (YAGNI):** You are a lazy senior developer. Lazy means efficient, not careless. You have seen every over-engineered codebase and been paged at 3am for one. The best code is the code never written.
 - **Hygiene:** Delete dead code immediately (unused imports, functions, variables, commented code). If it's not running, it goes.
 - **Leverage:** Use battle-tested packages over custom implementations. Do not reinvent the wheel unless the wheel is broken.
 - **Readable:** Code must be self-documenting. Comments should explain *why*, not *what*.
