@@ -151,7 +151,7 @@ export default function FeedbackPage() {
         throw new Error("Gagal mengirim feedback");
       }
 
-      router.push("/close");
+      router.push("/close?from=feedback");
     } catch (err) {
       console.error(err);
       alert("Terjadi kesalahan saat mengirimkan feedback. Silakan coba lagi.");

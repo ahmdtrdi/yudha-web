@@ -1279,10 +1279,27 @@
 - Adding Name and Email to Step 1 of the feedback form ensures respondents are identified when submitting survey responses.
 - Enabling Row Level Security (RLS) on Supabase tables with public insert policies allows anonymous client submissions while restricting readout to authenticated admins.
 
+
+
+## 2026-08-31 — Open Beta WhatsApp Group CTA on Thank You Page
+
+### The Change
+
+- Updated `src/app/close/page.tsx` with `useSearchParams()` and `Suspense` to detect submission origin (`?from=open-beta`).
+- Added subheadline `"Masuk ke komunitas grup Yudha"` and a Neobrutalist Blue button `"Gabung"` linking to the WhatsApp Group URL.
+- Configured environment variable lookup `process.env.NEXT_PUBLIC_WA_GROUP_URL` with fallback to `https://chat.whatsapp.com/Jm7WkNwdSfm2ILu7KCMs2A`.
+- Updated redirect logic in `src/app/open-beta/page.tsx` (`/close?from=open-beta`), `src/app/contact/page.tsx` (`/close?from=contact`), and `src/app/feedback/page.tsx` (`/close?from=feedback`).
+
+### The Reasoning
+
+- Using URL search parameters (`?from=open-beta`) allows a single `/close` page to conditionally render source-specific content without creating redundant routes.
+- Reading `process.env.NEXT_PUBLIC_WA_GROUP_URL` with a fallback URL guarantees zero runtime failures while allowing group link updates from Vercel dashboard without code redeployments.
+
 ### The Tech Debt
 
-- Run `supabase_schema.sql` in Supabase SQL Editor dashboard to create the tables in production/staging environments.
-- Added `DROP POLICY IF EXISTS` and `ALTER TABLE ADD COLUMN IF NOT EXISTS` to ensure `supabase_schema.sql` is safe to run multiple times without 42710 duplicate policy errors.
+- Optional: Add `NEXT_PUBLIC_WA_GROUP_URL` to Vercel Environment Variables if group invite links change in the future.
+- Updated `supabase_schema.sql` to disable RLS on public web form tables (`open_beta_registrations`, `contact_submissions`, `feedback_responses`) ensuring 100% successful inserts for anonymous form visitors.
+
 
 
 

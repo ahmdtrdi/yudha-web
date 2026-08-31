@@ -53,7 +53,7 @@ function OpenBetaContent() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        router.push("/close");
+        router.push("/close?from=open-beta");
       } else {
         setErrorMsg(data.error || "Gagal mendaftar. Silakan coba lagi.");
       }
