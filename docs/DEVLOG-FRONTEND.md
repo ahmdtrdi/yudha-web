@@ -1,5 +1,68 @@
 # Frontend Development Log
 
+## 2026-09-01 — Fix CtaSection Image Positioning and Embed Footer Social Media Links
+
+### The Change
+
+- Fixed `LazyImage` container classes when `fill` mode is active to use `absolute inset-0 w-full h-full overflow-hidden`, resolving an issue where the background image in `src/components/onboarding/CtaSection.tsx` collapsed and displaced the headline and button.
+- Restored `CtaSection.tsx` to its exact design matching Figma and previous references with text overlay positioned over the sky area.
+- Embedded official social media profile URLs with `target="_blank"` and `rel="noopener noreferrer"` into `src/components/onboarding/FooterSection.tsx`:
+  - **Instagram**: `https://www.instagram.com/yudha.fun/`
+  - **X (Twitter)**: `https://x.com/yudhaisfun`
+  - **LinkedIn**: `https://www.linkedin.com/company/yudha`
+
+### The Reasoning
+
+- Correcting the `fill` wrapper styling ensures background artwork containers with responsive aspect ratios render seamlessly without layout shifts.
+- Linking social icons to actual brand channels enhances user trust and discovery.
+
+### The Tech Debt
+
+- None.
+
+## 2026-09-01 — Replace Footer Logo with New Asset and Implement Progressive Lazy Loading
+
+### The Change
+
+- Replaced all instances of `/assets/logo-footer-yudha.svg` with `/assets/logo-footer-yudha-new.svg` across `src/components/onboarding/FooterSection.tsx` and `src/app/close/page.tsx`.
+- Created a reusable progressive `LazyImage` component (`src/components/ui/LazyImage.tsx`) that features:
+  - Shimmer pulse placeholder while loading (`bg-stone-200/70 animate-pulse`).
+  - Smooth unblur & fade-in transition (`opacity-0 blur-[6px]` to `opacity-100 blur-0`).
+  - Native `loading="lazy"` handling for all non-priority images.
+- Integrated `LazyImage` into below-the-fold and heavy components: `GatCardCatalogSection.tsx`, `CartesiusMapSection.tsx`, `CtaSection.tsx`, `TeamSection.tsx`, `open-beta/page.tsx`, and `contact/page.tsx`.
+- Enabled automatic AVIF/WebP image optimization in `next.config.ts`.
+- Added `src/app/loading.tsx` for route-level streaming transitions.
+
+### The Reasoning
+
+- Replacing static footer logos ensures alignment with latest branding assets ("your ultimate digital hired arena").
+- Several artwork images and founder photos range from 2MB to 5MB. Adding AVIF/WebP conversion, lazy-loading, and progressive skeleton blur prevents layout jumps and significantly reduces initial page load footprint.
+
+### The Tech Debt
+
+- None. All images now load on-demand with fallback placeholders and optimal responsive sizes.
+
+## 2026-09-01 — Add Founder Portraits and LinkedIn Links to TeamSection
+
+### The Change
+
+- Updated `src/components/about/TeamSection.tsx` with founder portrait assets:
+  - CEO (Ridho Aditya): `/assets/CF1.jpeg`
+  - CTO (Galnoel Rindengan): `/assets/CF2.jpeg`
+  - Product Lead (Regina George): `/assets/CF3.jpeg`
+  - Business Lead (Ahmad Triadi): `/assets/CF4.jpeg`
+- Integrated LinkedIn profile links on the founder photos and name titles with external tab navigation (`target="_blank"` and `rel="noopener noreferrer"`).
+- Replaced the placeholder `div` with Next.js `Image` components using `aspect-[4/5]`, `object-cover`, and `object-top` positioning to maintain proportional portrait framing across responsive viewports.
+
+### The Reasoning
+
+- Linking both the photo frame (with subtle hover scale) and the name headline improves tap target accessibility and overall polish.
+- `next/image` with `priority` and responsive `sizes` ensures immediate render of portraits without layout shifts.
+
+### The Tech Debt
+
+- None. Assets are loaded directly from local optimized images.
+
 ## 2026-09-01 — Redesign LatihanTiapHariSection with Scroll-Locked Interactive Showcase
 
 ### The Change

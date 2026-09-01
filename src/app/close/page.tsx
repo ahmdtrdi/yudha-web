@@ -89,13 +89,14 @@ function CloseContent() {
         </div>
       </div>
 
-      {/* Bottom Footer: Small logo-footer-yudha.svg */}
+      {/* Bottom Footer: Small logo-footer-yudha-new.svg */}
       <footer className="w-full flex justify-center items-center pb-2 sm:pb-4">
         <Image
-          src="/assets/logo-footer-yudha.svg"
+          src="/assets/logo-footer-yudha-new.svg"
           alt="your hired ultimate arena - YUDHA"
           width={130}
           height={44}
+          loading="lazy"
           className="w-[100px] sm:w-[115px] md:w-[125px] h-auto object-contain opacity-90"
         />
       </footer>

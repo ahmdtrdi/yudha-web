@@ -1,5 +1,6 @@
 "use client";
 
+import { LazyImage } from "@/components/ui/LazyImage";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -92,11 +93,12 @@ function OpenBetaContent() {
       {/* Left Column: Artwork Image (Full width cover anchored at bottom for mobile to show full characters, left-aligned contain on desktop) */}
       <div className="w-full lg:w-[42%] xl:w-[40%] h-[280px] sm:h-[340px] md:h-[400px] lg:h-screen relative bg-white overflow-hidden flex-shrink-0 flex flex-col justify-between p-4 sm:p-8 lg:p-10">
         {/* Background Image */}
-        <Image
+        <LazyImage
           src="/assets/hero-43-form.png"
           alt="Yudha Chibi Adventurers under the Tree"
           fill
           priority
+          wrapperClassName="absolute inset-0"
           className="object-cover object-bottom lg:object-contain lg:object-left"
         />
 

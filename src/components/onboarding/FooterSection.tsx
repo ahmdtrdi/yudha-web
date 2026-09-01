@@ -16,12 +16,12 @@ export function FooterSection() {
             {/* Left Brand Logo */}
             <div className="flex-shrink-0">
               <Image
-                src="/assets/logo-footer-yudha.svg"
+                src="/assets/logo-footer-yudha-new.svg"
                 alt="your hired ultimate arena - YUDHA"
                 width={210}
                 height={70}
+                loading="lazy"
                 className="w-[260px] sm:w-[280px] lg:w-[380px] h-auto object-contain"
-                priority
               />
             </div>
 
@@ -75,13 +75,28 @@ export function FooterSection() {
                 <h3 className="text-xs sm:text-sm font-medium text-stone-400">
                   Connect
                 </h3>
-                <a href="#" className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors">
+                <a
+                  href="https://x.com/yudhaisfun"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors"
+                >
                   X
                 </a>
-                <a href="#" className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors">
+                <a
+                  href="https://www.linkedin.com/company/yudha"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors"
+                >
                   Linkedin
                 </a>
-                <a href="#" className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors">
+                <a
+                  href="https://www.instagram.com/yudha.fun/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors"
+                >
                   Instagram
                 </a>
               </div>

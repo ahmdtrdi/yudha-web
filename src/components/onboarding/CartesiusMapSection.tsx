@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { LazyImage } from "@/components/ui/LazyImage";
 
 export function CartesiusMapSection() {
   return (
@@ -19,12 +19,11 @@ export function CartesiusMapSection() {
 
         {/* Cartesius Map Diagram - Proportional sizing with spacious breathing room */}
         <div className="w-full max-w-[720px] md:max-w-[780px] lg:max-w-[820px] mx-auto mb-10 sm:mb-14 lg:mb-16 flex justify-center items-center">
-          <Image
+          <LazyImage
             src="/assets/cartesius-map.png"
             alt="Diagram Tingkat Keketatan vs Tingkat Kompleksitas Soal GAT"
             width={1000}
             height={560}
-            priority
             className="w-full h-auto object-contain select-none"
           />
         </div>

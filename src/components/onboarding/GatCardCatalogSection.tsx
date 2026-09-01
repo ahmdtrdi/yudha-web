@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { LazyImage } from "@/components/ui/LazyImage";
 
 interface CardItem {
   id: string;
@@ -97,7 +97,7 @@ function CatalogCard({ card }: { card: CardItem }) {
         
         {/* Card Artwork Image - Pulls UP out of sleeve on hover */}
         <div className="relative z-10 w-full h-[92%] transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-y-12 sm:group-hover:-translate-y-14 group-hover:scale-[1.02]">
-          <Image
+          <LazyImage
             src={card.image}
             alt={card.title}
             fill

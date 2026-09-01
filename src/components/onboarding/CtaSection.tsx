@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { LazyImage } from "@/components/ui/LazyImage";
 import Link from "next/link";
 
 export function CtaSection() {
@@ -8,13 +8,12 @@ export function CtaSection() {
     <section className="w-full px-4 sm:px-8 lg:px-8 py-8 sm:py-12 lg:py-[60px] font-sans bg-white flex justify-center">
       <div className="relative w-full max-w-[1280px] rounded-[24px] sm:rounded-[36px] overflow-hidden min-h-[420px] sm:min-h-[480px] lg:min-h-[640px] flex flex-col items-center justify-start">
 
-        {/* Background Image */}
-        <Image
+        {/* Background Image with smooth lazy loading */}
+        <LazyImage
           src="/assets/Gambar Watercolor Chibi.png"
           alt="Watercolor chibi characters resting on a hill"
           fill
           className="object-cover object-bottom"
-          priority={false}
         />
 
         {/* Content overlay */}
