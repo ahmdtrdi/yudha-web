@@ -9,7 +9,7 @@ import { FooterSection } from "@/components/onboarding/FooterSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white flex flex-col w-full overflow-x-hidden">
+    <main className="min-h-screen bg-white flex flex-col w-full overflow-x-clip">
       <OnboardingHero />
       <CartesiusMapSection />
       <GatCardCatalogSection />

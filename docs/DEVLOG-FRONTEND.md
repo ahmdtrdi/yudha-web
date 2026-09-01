@@ -1,5 +1,28 @@
 # Frontend Development Log
 
+## 2026-09-01 — Redesign LatihanTiapHariSection with Scroll-Locked Interactive Showcase
+
+### The Change
+
+- Replaced the static stretched card in `src/components/onboarding/LatihanTiapHariSection.tsx` with a sticky scroll-driven feature showcase.
+- Fixed root cause of sticky scroll failure: replaced `overflow-x: hidden` with `overflow-x: clip` in `src/app/globals.css` and `src/app/page.tsx`, which was preventing browsers (Chrome/Safari) from calculating the sticky container boundaries relative to window scroll.
+- Adjusted card proportions to `max-w-[1040px]` with neobrutalist borders (`border-[2.5px] border-stone-900`) and offset drop shadow (`shadow-[-6px_8px_0_rgba(0,0,0,0.95)]`), matching the Figma artboard.
+- Replaced the artificial empty phone frame div with authentic direct rendering of mobile UI captures (`/assets/M-Arena.png`, `/assets/M-Arena-Question.png`, `/assets/M-Profile.png`, `/assets/M-Interview-Speak.png`).
+- Built a vertical indicator scrollbar on the left side that fills down progressively as the user scrolls through features.
+- Implemented word-by-word fade-in illumination for feature descriptions based on precise scroll progress interpolation.
+- Added a 4-phase sticky scroll progression (Arena PvP text reveal -> Arena Question screen swap -> Analisis Performa -> AI Interview) that pins the viewport until all features are completed before transitioning to the FAQ section.
+
+### The Reasoning
+
+- Replacing `overflow-x: hidden` with `overflow-x: clip` on ancestor elements (`body` and `main`) maintains horizontal overflow protection while ensuring `position: sticky` pins the viewport reliably without creating conflicting scroll contexts.
+- Pinned sticky container (`h-[400vh]` with `sticky top-0 h-screen`) provides smooth, native 60fps scroll-locking without intrusive scroll-jacking scripts.
+- Preloading and mounting all 4 mobile screenshot screens in absolute layers eliminates image load flash and enables seamless cross-fades.
+- Word-level opacity calculations create a high-fidelity illumination effect matching the Anthropic/Claude design reference.
+
+### The Tech Debt
+
+- On very short horizontal mobile viewports (landscape mobile), verify that vertical padding scales down comfortably.
+
 ## 2026-08-19 — Interactive landing hero
 
 ### The Change
