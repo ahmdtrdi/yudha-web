@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import Image from "next/image";
 
 interface Feature {
   id: string;
@@ -29,96 +30,235 @@ const FEATURES: Feature[] = [
   },
 ];
 
-export function LatihanTiapHariSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
+const SCREENS = [
+  {
+    key: "arena-main",
+    src: "/assets/M-Arena.png",
+    alt: "Tampilan Arena PvP Yudha",
+  },
+  {
+    key: "arena-question",
+    src: "/assets/M-Arena-Question.png",
+    alt: "Tampilan Soal Duel Arena PvP Yudha",
+  },
+  {
+    key: "profile",
+    src: "/assets/M-Profile.png",
+    alt: "Tampilan Analisis Performa Profil Yudha",
+  },
+  {
+    key: "interview",
+    src: "/assets/M-Interview-Speak.png",
+    alt: "Tampilan AI Interview Simulasi Suara Yudha",
+  },
+];
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const handleScroll = () => {
-      const rect = section.getBoundingClientRect();
-      const sectionHeight = rect.height;
-      const viewportHeight = window.innerHeight;
-
-      // How far the top of the section has scrolled past the top of the viewport
-      const scrolled = -rect.top;
-      // Total scrollable distance within the tall section
-      const scrollableDistance = sectionHeight - viewportHeight;
-
-      if (scrollableDistance <= 0) return;
-
-      const progress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
-
-      // Map progress to 3 features: 0-0.33 = 0, 0.33-0.66 = 1, 0.66-1 = 2
-      const index = Math.min(
-        FEATURES.length - 1,
-        Math.floor(progress * FEATURES.length)
-      );
-
-      setActiveIndex(index);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const active = FEATURES[activeIndex];
+function WordRevealText({ text, progress }: { text: string; progress: number }) {
+  const words = text.split(" ");
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-white font-sans py-12 sm:py-16 lg:py-20">
-      <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center text-center px-6">
-        <div className="w-full flex flex-col items-center text-center">
+    <p className="text-sm sm:text-[15px] lg:text-[16px] leading-[1.7] font-medium text-left select-none">
+      {words.map((word, i) => {
+        const start = i / words.length;
+        const end = (i + 1) / words.length;
+        const wordFraction = Math.max(0, Math.min(1, (progress - start) / (end - start || 0.01)));
+        const opacity = 0.2 + 0.8 * wordFraction;
+        const isLit = wordFraction >= 0.4;
 
-          {/* Section Heading */}
-          <h2 className="text-3xl sm:text-[40px] lg:text-[36px] font-extrabold text-stone-950 tracking-tight leading-[1.1] mb-2 sm:mb-3">
-            Latihan tiap hari, tanpa terasa berat
-          </h2>
+        return (
+          <span
+            key={i}
+            className="inline-block mr-[0.26em] transition-opacity duration-75"
+            style={{
+              opacity: opacity,
+              color: isLit ? "#090909" : "#a8a29e",
+              fontWeight: isLit ? 600 : 400,
+            }}
+          >
+            {word}
+          </span>
+        );
+      })}
+    </p>
+  );
+}
 
-          {/* Section Subtitle */}
-          <p className="text-sm sm:text-[15px] md:text-[16px] text-stone-400 font-normal leading-relaxed max-w-[760px] mb-6 sm:mb-8">
-            Yudha bikin drilling harian nempel lewat streak, duel PvP, dan progress yang keliatan tiap hari—bukan numpuk soal di last minute.
-          </p>
+export function LatihanTiapHariSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-          {/* Feature Showcase Card */}
-          <div className="w-full border-[2.5px] border-stone-900 rounded-2xl sm:rounded-3xl bg-white shadow-[-4px_6px_0_rgba(0,0,0,0.9)] overflow-hidden">
-            <div className="flex flex-col md:grid md:grid-cols-[1fr_auto_1fr] items-center min-h-auto md:min-h-[380px]">
+  const handleScroll = useCallback(() => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const scrollable = rect.height - window.innerHeight;
+    if (scrollable <= 0) return;
 
-              {/* Left/Top: Feature Tab Labels */}
-              <div className="w-full flex flex-row md:flex-col justify-center md:justify-center gap-2 sm:gap-3 px-4 sm:px-8 lg:px-10 py-5 sm:py-8 border-b md:border-b-0 border-stone-100 overflow-x-auto">
-                {FEATURES.map((feature, index) => (
-                  <button
-                    key={feature.id}
-                    onClick={() => setActiveIndex(index)}
-                    className={`text-center md:text-left text-xs sm:text-base lg:text-xl font-semibold transition-colors duration-300 cursor-pointer whitespace-nowrap md:whitespace-normal px-2 py-1 rounded-lg ${
-                      activeIndex === index
-                        ? "text-stone-950 bg-stone-100 md:bg-transparent"
-                        : "text-stone-400 md:text-stone-300 hover:text-stone-600 md:hover:text-stone-400"
-                    }`}
-                  >
-                    {feature.label}
-                  </button>
-                ))}
+    const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
+    setScrollProgress(progress);
+  }, []);
+
+  useEffect(() => {
+    let animFrame: number;
+
+    const onScroll = () => {
+      cancelAnimationFrame(animFrame);
+      animFrame = requestAnimationFrame(handleScroll);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(animFrame);
+    };
+  }, [handleScroll]);
+
+  // Phase computation:
+  // Phase 1a: Arena PvP (M-Arena.png) + word fade in (0.00 -> 0.22)
+  // Phase 1b: Arena PvP Question (M-Arena-Question.png) + full text stays (0.22 -> 0.38)
+  // Phase 2:  Analisis Performa (M-Profile.png) + word fade in (0.38 -> 0.70)
+  // Phase 3:  AI Interview (M-Interview-Speak.png) + word fade in (0.70 -> 1.00)
+
+  let activeIndex = 0;
+  let activeImageKey = "arena-main";
+  let wordProgress = 0;
+
+  if (scrollProgress < 0.22) {
+    activeIndex = 0;
+    activeImageKey = "arena-main";
+    wordProgress = Math.min(1, scrollProgress / 0.20);
+  } else if (scrollProgress < 0.38) {
+    activeIndex = 0;
+    activeImageKey = "arena-question";
+    wordProgress = 1.0;
+  } else if (scrollProgress < 0.70) {
+    activeIndex = 1;
+    activeImageKey = "profile";
+    wordProgress = Math.min(1, Math.max(0, (scrollProgress - 0.38) / (0.64 - 0.38)));
+  } else {
+    activeIndex = 2;
+    activeImageKey = "interview";
+    wordProgress = Math.min(1, Math.max(0, (scrollProgress - 0.70) / (0.95 - 0.70)));
+  }
+
+  const activeFeature = FEATURES[activeIndex];
+
+  const handleTabClick = (index: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const scrollable = rect.height - window.innerHeight;
+    const currentScrollY = window.scrollY || window.pageYOffset;
+    const sectionTop = currentScrollY + rect.top;
+
+    let targetProgress = 0.05;
+    if (index === 1) targetProgress = 0.48;
+    if (index === 2) targetProgress = 0.82;
+
+    window.scrollTo({
+      top: sectionTop + targetProgress * scrollable,
+      behavior: "smooth",
+    });
+  };
+
+  // Indicator bar calculation (for the vertical track on left)
+  // Starts with a minimal notch (14%) and expands downward smoothly as user scrolls
+  const indicatorHeightPercent = Math.min(100, Math.max(14, scrollProgress * 100));
+
+  return (
+    <section
+      ref={containerRef}
+      className="relative w-full h-[400vh] bg-white font-sans"
+    >
+      {/* Sticky Viewport Container */}
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 py-4 sm:py-6 overflow-hidden">
+        <div className="w-full max-w-[1040px] mx-auto flex flex-col items-center">
+
+          {/* Section Heading & Subtitle */}
+          <div className="w-full flex flex-col items-center text-center mb-5 sm:mb-7 lg:mb-9">
+            <h2 className="text-2xl sm:text-[34px] lg:text-[38px] font-extrabold text-stone-950 tracking-tight leading-[1.15] mb-2 sm:mb-3">
+              Latihan tiap hari, tanpa terasa berat
+            </h2>
+            <p className="text-xs sm:text-[14px] md:text-[15px] lg:text-[16px] text-stone-400 font-normal leading-relaxed max-w-[740px]">
+              Yudha bikin drilling harian nempel lewat streak, duel PvP, dan progress yang keliatan tiap hari—bukan numpuk soal di last minute.
+            </p>
+          </div>
+
+          {/* Feature Showcase Card - Matches Figma proportions & Neobrutalist styling */}
+          <div className="w-full border-[2.5px] border-stone-900 rounded-[28px] sm:rounded-[36px] bg-white shadow-[-6px_8px_0_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:p-9 relative overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-[220px_1fr_280px] lg:grid-cols-[250px_1fr_320px] items-center gap-6 lg:gap-8 min-h-[350px] sm:min-h-[390px] lg:min-h-[420px]">
+
+              {/* Left Column: Feature Tab Labels with Vertical Scrollbar Indicator */}
+              <div className="relative pl-6 flex flex-row md:flex-col justify-between md:justify-center gap-4 sm:gap-6 lg:gap-8 border-b md:border-b-0 border-stone-100 pb-3 md:pb-0">
+                {/* Vertical Indicator Track (Desktop) */}
+                <div className="hidden md:block absolute left-0 top-1 bottom-1 w-[3.5px] bg-stone-200 rounded-full overflow-hidden">
+                  <div
+                    className="w-full bg-stone-950 rounded-full transition-all duration-100 ease-out"
+                    style={{ height: `${indicatorHeightPercent}%` }}
+                  />
+                </div>
+
+                {/* Horizontal Indicator Track (Mobile) */}
+                <div className="md:hidden absolute left-0 right-0 bottom-0 h-[2.5px] bg-stone-200">
+                  <div
+                    className="h-full bg-stone-950 transition-all duration-100 ease-out"
+                    style={{ width: `${indicatorHeightPercent}%` }}
+                  />
+                </div>
+
+                {FEATURES.map((feature, index) => {
+                  const isCurrent = activeIndex === index;
+                  return (
+                    <button
+                      key={feature.id}
+                      onClick={() => handleTabClick(index)}
+                      className={`text-left text-sm sm:text-lg lg:text-2xl transition-all duration-200 cursor-pointer whitespace-nowrap md:whitespace-normal py-1 ${
+                        isCurrent
+                          ? "text-stone-950 font-extrabold scale-[1.02] origin-left"
+                          : "text-stone-300 font-semibold hover:text-stone-500"
+                      }`}
+                    >
+                      {feature.label}
+                    </button>
+                  );
+                })}
               </div>
 
-              {/* Center: Phone Mockup */}
-              <div className="flex items-center justify-center px-2 py-4 sm:py-6">
-                <div className="relative w-[110px] sm:w-[150px] lg:w-[170px] h-[220px] sm:h-[300px] lg:h-[340px] border-[3px] border-stone-900 rounded-[22px] sm:rounded-[30px] bg-white overflow-hidden shadow-sm">
-                  <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-14 sm:w-16 h-[18px] sm:h-[22px] bg-stone-900 rounded-full z-10" />
-                  <div className="w-full h-full bg-stone-50" />
+              {/* Center Column: Authentic Mobile UI Screen (No fake phone frame) */}
+              <div className="flex items-center justify-center py-1">
+                <div className="relative w-full max-w-[190px] sm:max-w-[220px] md:max-w-[240px] lg:max-w-[260px] aspect-[9/19] flex items-center justify-center">
+                  {SCREENS.map((screen) => {
+                    const isActive = screen.key === activeImageKey;
+                    return (
+                      <div
+                        key={screen.key}
+                        className={`absolute inset-0 transition-all duration-500 ease-out flex items-center justify-center ${
+                          isActive
+                            ? "opacity-100 scale-100 translate-y-0 z-10"
+                            : "opacity-0 scale-95 translate-y-2 pointer-events-none z-0"
+                        }`}
+                      >
+                        <Image
+                          src={screen.src}
+                          alt={screen.alt}
+                          width={380}
+                          height={800}
+                          priority
+                          className="w-full h-full object-contain select-none drop-shadow-[0_10px_20px_rgba(0,0,0,0.08)]"
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Right/Bottom: Active Feature Description */}
-              <div className="w-full flex items-center justify-center md:justify-start px-5 sm:px-8 lg:px-10 py-5 sm:py-8 min-h-[90px] sm:min-h-[120px] bg-stone-50 md:bg-transparent">
-                <p
-                  key={active.id}
-                  className="text-xs sm:text-[13px] lg:text-sm text-stone-600 md:text-stone-500 leading-relaxed text-center md:text-left animate-fadeIn max-w-[340px]"
-                >
-                  {active.description}
-                </p>
+              {/* Right Column: Active Feature Description with Word-by-Word Fade-in */}
+              <div className="w-full flex items-center justify-center md:justify-start px-2 sm:px-4 min-h-[100px] sm:min-h-[130px]">
+                <WordRevealText
+                  key={activeFeature.id}
+                  text={activeFeature.description}
+                  progress={wordProgress}
+                />
               </div>
 
             </div>
@@ -129,3 +269,5 @@ export function LatihanTiapHariSection() {
     </section>
   );
 }
+
+
