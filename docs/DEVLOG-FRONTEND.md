@@ -407,6 +407,40 @@
 
 
 
+## 2026-09-01 — Unified YUDHA Privacy Policy
+
+### The Change
+
+- Added a static, Indonesian-language privacy policy at `/privacy-policy` covering the YUDHA app and yudha.fun website, including data categories, processing purposes, AI providers, retention, user rights, child privacy, and an actionable account-deletion flow.
+- Connected the policy from the shared footer, Contact form, and Open Beta form, and added route-specific metadata plus responsive, accessible navigation anchors.
+- Consolidated repeated API error extraction into an `unknown`-safe helper and resolved the existing Open Beta and Feedback hook lint findings without changing their request payloads or API behavior.
+- Verified the page at 360 px, 768 px, and 1440 px widths, then passed the full ESLint and Next.js production build checks.
+
+### The Reasoning
+
+- A single policy keeps the disclosures for mobile account/gameplay/interview data and website form submissions consistent with the services users actually encounter.
+- The branded legal layout preserves YUDHA's neobrutalist visual language while using semantic headings, a table of contents, readable content cards, and a prominent deletion-request path.
+- The retention and deletion language mirrors the agreed operational commitments and avoids promising that third-party AI providers have data practices YUDHA has not contractually verified.
+
+### The Tech Debt
+
+- The mobile app still needs an in-app Privacy Policy entry, an in-app account-deletion flow, and an age/guardian-consent mechanism before a policy-complete Google Play release.
+- Any future analytics, advertising, real-money payments, AI provider changes, or model-training use must trigger a privacy-policy and Play Console Data Safety review.
+
+## 2026-09-01 — Privacy Policy Hero Badge Removal
+
+### The Change
+
+- Removed the decorative “Privasi di YUDHA” badge above the Privacy Policy page title.
+
+### The Reasoning
+
+- The badge was visually unnecessary and distracted from the primary page heading.
+
+### The Tech Debt
+
+- None.
+
 
 ## 2026-08-20 — 3D Button outside background layout & Indonesian headline restoration
 

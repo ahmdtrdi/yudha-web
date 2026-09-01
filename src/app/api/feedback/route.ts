@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function POST(request: Request) {
   try {
@@ -83,10 +84,10 @@ export async function POST(request: Request) {
       success: true,
       data: insertedData,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[API /api/feedback] Internal Server Error:", error);
     return NextResponse.json(
-      { success: false, error: error?.message || "Internal server error" },
+      { success: false, error: getErrorMessage(error) },
       { status: 500 }
     );
   }

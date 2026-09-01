@@ -229,7 +229,7 @@ export default function ContactPage() {
               {/* Bottom Notice */}
               <p className="text-[10.5px] text-stone-400 leading-tight pt-0.5">
                 For details about how we collect, use, and protect your information, please see our{" "}
-                <Link href="#" className="underline hover:text-stone-600">
+                <Link href="/privacy-policy" className="underline hover:text-stone-600">
                   Privacy Policy
                 </Link>
               </p>

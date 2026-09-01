@@ -65,9 +65,9 @@ export function FooterSection() {
                 <h3 className="text-xs sm:text-sm font-medium text-stone-400">
                   Legal
                 </h3>
-                <a href="#" className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors">
+                <Link href="/privacy-policy" className="text-xs sm:text-sm font-medium text-[#090909] hover:underline underline-offset-4 transition-colors">
                   Privacy policy
-                </a>
+                </Link>
               </div>
 
               {/* Connect */}

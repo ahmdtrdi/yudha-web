@@ -126,7 +126,7 @@ export default function FeedbackPage() {
     }
   }, [step, formData]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     setIsSubmitting(true);
     try {
       const payload = {
@@ -158,9 +158,9 @@ export default function FeedbackPage() {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [formData, router]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (!isStepValid()) {
       setShowError(true);
       return;
@@ -171,7 +171,7 @@ export default function FeedbackPage() {
     } else {
       handleSubmit();
     }
-  };
+  }, [handleSubmit, isStepValid, step]);
 
   const handleBack = () => {
     if (step > 1) {
