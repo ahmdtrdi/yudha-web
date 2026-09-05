@@ -1435,6 +1435,32 @@
 
 - None. Fully compatible with both direct URL parameters and client storage navigation.
 
+## 2026-09-05 — Feedback Form Version 2 Update & Impact Measurement
+
+### The Change
+
+- Created `src/lib/feedback.ts`: Defined survey version 2 data structures (`FeedbackPayload`), step configurations, choices, exclusivity rules, dynamic question labels, and shared validation rules (`validateFeedback`, `parseFeedback`).
+- Created `src/lib/feedback-record.ts`: Implemented database record mapping (`buildFeedbackRecord`) supporting both `survey_version: 2` (persisting all answers in `answers` JSONB column while mapping matching fields to existing columns) and legacy unversioned submissions for backward compatibility.
+- Created `src/components/FeedbackQuestion.tsx`: Extracted modular accessible question renderer handling single/multi options, exclusive choices, "Lainnya" input fields, error messages near inputs (`role="alert"`), and keyboard handling (`type="button"` preventing premature form submit).
+- Refactored `src/app/feedback/page.tsx`: Updated the multi-step form to 10 main steps plus conditional AI Interview step, responsive progress bar, keyboard-friendly navigation, focus management on error, and robust double-submit prevention.
+- Updated `src/app/api/feedback/route.ts`: Switched to `buildFeedbackRecord`, added validation (400), Supabase availability check (503), error handling without PII logging, and direct 200 response without readback query.
+- Updated `src/app/feedback/page.tsx` top-left corner brand control to render the official vector brand logo (`/assets/logo-yudha.svg`) with accessible label and subtle hover scale, replacing the plain text placeholder.
+- Updated `docs/feedback_form.md`: Documented complete survey version 2 specification, field mappings, question rules, and analysis guidelines.
+- Created `tests/feedback.test.mjs` & added `npm run test:feedback` script in `package.json`: 12 automated unit and integration tests covering form validation, edge cases (0 days, exclusive options, conditional steps, legacy compatibility, API errors, and mock boundaries).
+
+### The Reasoning
+
+- Replacing the 4 obsolete price questions with learning impact questions (frequency change, weak topic clarity, time pressure readiness, actions taken after analysis, and AI interview technique changes) provides qualitative and self-reported evidence of user-perceived product value.
+- Moving survey schema, validation, and steps into `src/lib/feedback.ts` and `src/lib/feedback-record.ts` ensures client and server share the exact same validation rules and field definitions.
+- Storing full survey responses in the existing `answers` column allows new questions without modifying the database schema or distorting legacy numerical columns (`q14`, `q15`, `q5`, pricing columns).
+- Supporting legacy payloads ensures active client sessions during deployment are not abruptly broken.
+- Removing mock success ensures failed submissions are visible to users with their form state preserved so they can retry without losing their answers.
+
+### The Tech Debt
+
+- End-to-end database write verification against actual Supabase deployment needs to be performed once environment variables are active in staging/production (tested via database boundary mock).
+- Analytical dashboards and reporting tools for Survey Version 2 aggregate results remain a separate follow-up task.
+
 
 
 
