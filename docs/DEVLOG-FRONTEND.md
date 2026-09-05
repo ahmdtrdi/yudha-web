@@ -1,5 +1,70 @@
 # Frontend Development Log
 
+## 2026-09-05 — Implement 2-Column Left-Sidebar CAT Layout (Zero-Scroll Ergonomics)
+
+### The Change
+
+- Refactored `ClosedPilotClient.tsx` test runner screen into a full 2-Column Computer-Assisted Testing (CAT) workspace:
+  - **Left Sidebar (`w-72 flex-shrink-0`)**: Houses the dark digital countdown timer box (`Sisa Waktu`), status legend (`Dijawab` vs `Belum`), a compact 5x4 grid containing all 20 question buttons with real-time green/red state indicators, and the prominent yellow `Selesai Assessment` neobrutalist button at the bottom.
+  - **Right Main Card (`flex-1`)**: Houses question number/subtest label, question statement, 5 radio options (A–E) with ergonomic padding (`p-2.5 sm:p-3`), and bottom action toolbar (`‹ Sebelumnya`, `Berikutnya ›`, `Simpan dan Lanjutkan`, `Lewatkan`).
+  - **No-Scroll Fit**: Styled outer container with `lg:h-screen overflow-hidden` so the entire test workspace fits perfectly on standard 1366x768 and 1920x1080 laptop displays without triggering window scrolling. Only the right card scrolls internally if an individual question has exceptionally long text.
+- Verified in browser subagent and captured visual artifact confirming zero-scroll ergonomics and immediate accessibility.
+
+### The Reasoning
+
+- Placing question navigation on a dedicated left sidebar prevents vertical stacking that forces laptop users to scroll on every question. This mimics professional CAT/CBT testing interfaces (e.g. BKN, GRE) for maximum comfort and speed.
+
+### The Tech Debt
+
+- None.
+
+## 2026-09-05 — Refactor /closed-pilot Test Runner Layout to Natural Flow & Add 1-Click Clipboard Exporter
+
+### The Change
+
+- Refactored `ClosedPilotClient.tsx` test runner screen:
+  - Removed `overflow-y-auto` from `<main>` and eliminated the `fixed bottom-0` footer wrapper that trapped mouse wheel events and covered bottom buttons on smaller laptop screens (~768px height).
+  - Aligned layout to natural document flow matching the user's reference mockup (Screenshot 3):
+    - `[Simpan dan Lanjutkan]` and `[Lewatkan soal ini]` buttons placed below the question card.
+    - 2-row 10x2 question number grid with `<` and `>` circular arrow buttons and green/red status legend centered.
+    - Dark countdown timer badge right-aligned in normal document flow.
+    - Added live countdown timer in the top header summary box for persistent time visibility regardless of scroll position.
+  - Removed `overflow-y-auto` from `<main>` in the Result/History screen to preserve unhindered browser window scrolling.
+  - Added `📋 Salin Tabel (Excel)` 1-click clipboard exporter (TSV format) in the History table alongside `📥 Export CSV` for immediate paste into Google Sheets / Excel.
+- Verified in browser subagent that scrolling operates smoothly, buttons are accessible, and the layout faithfully mirrors Screenshot 3.
+
+### The Reasoning
+
+- Fixed bottom bars on viewports with < 800px height obscured action buttons and trapped scroll wheel events inside horizontal containers. Shifting to natural flow with an uncluttered layout gives users complete control over page scrolling and matches the desired design specifications.
+
+### The Tech Debt
+
+- None.
+
+## 2026-09-05 — Implement /closed-pilot Offline Assessment Platform
+
+### The Change
+
+- Built the entire offline pilot testing UI at `src/app/closed-pilot/page.tsx` covering:
+  - Single-password authentication (`YudhaJu4r4`) with email input removed per updated specifications.
+  - Streamlined Contestant selection (clean "Kontestan A, B, C, D" grid without extraneous subtitle descriptions) and clean Pre/Post test phase toggles.
+  - Hardened Neobrutalist button and header styling with explicit solid backgrounds (`#0560fd`, `#e2ef44`) ensuring zero rendering degradation in Tailwind v4.
+  - Resolved SSR hydration mismatch with an explicit mounted lifecycle guard.
+  - Corrected test runner scrolling with natural vertical overflow (`overflow-y-auto pb-48`), non-collapsible question number badges (`flex-shrink-0 min-w-[32px]`), and elevated fixed bottom navigation.
+  - Interactive 20-question test runner with real-time green/red state indicator, 20-minute countdown timer, and automatic submission.
+  - Score computation (GAT up to 75, Situasional up to 25, total 100) and passing grade status (>= 70).
+  - Assessment history persistence via `localStorage` with CSV export capability.
+- Created `src/lib/pilot-test-data.ts` containing the 20-question parallel datasets for Paket A and Paket B.
+- Created methodology and test pack reference docs: `docs/PILOT-TEST-MECHANISM.md` and `docs/TEST-PACK-A-AND-B.md`.
+
+### The Reasoning
+
+- Enables the offline pilot experiment for 4 participants to generate empirical data for the "Impact & Evidence of Effectiveness" competition rubric without modifying the existing public site routes.
+
+### The Tech Debt
+
+- Historical assessment data is currently stored in client-side `localStorage`; if multi-device real-time aggregation is needed during live testing, a Supabase table hookup can be added later.
+
 ## 2026-09-01 — Fix CtaSection Image Positioning and Embed Footer Social Media Links
 
 ### The Change
