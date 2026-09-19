@@ -99,7 +99,7 @@ Bukti efektivitas dibagi menjadi 3 dimensi terukur:
    - Isi form profil singkat: nama, status pendaftaran (first-timer vs retaker), metode belajar sebelumnya (buku, video, bimbel, belum belajar).
 2. **Kondisi Tryout Normal**:
    - Berikan lembar soal atau platform tryout standar tanpa gamifikasi (Set A untuk P1 & P2; Set B untuk P3 & P4 dari `docs/TEST-PACK-A-AND-B.md`).
-   - Format: **20 butir soal GAT/SKD** (Verbal 5, Numerik 6, Figural 4, Situasional 5) dengan alokasi waktu ketat **15–20 menit** (1 soal $\approx 45–60$ detik).
+   - Format: **20 butir soal GAT/SKD** (Verbal 5, Numerik 6, Logis berbasis teks 4, Situasional 5) dengan alokasi waktu ketat **15–20 menit** (1 soal $\approx 45–60$ detik).
    - **Instruksi fasilitator**: "Kerjakan sebaik dan secepat mungkin seperti kondisi ujian asli. Jangan membuka catatan atau kalkulator."
 3. **Pencatatan Fasilitator**:
    - Catat waktu selesai masing-masing peserta menggunakan stopwatch.
@@ -170,7 +170,7 @@ Fasilitator memandu peserta membuka platform YUDHA di laptop/smartphone masing-m
 | :--- | :---: | :---: | :---: | :--- |
 | **Verbal** (Sinonim, Analogi, Silogisme) | `...%` | `...%` | `+...%` | Lebih cepat eliminasi opsi jebakan |
 | **Numerik** (Pecahan, Aljabar, Aritmatika) | `...%` | `...%` | `+...%` | Pola hitung cepat terasah di drilling |
-| **Logis / Figural** (Pola Gambar, Rotasi) | `...%` | `...%` | `+...%` | Refleks visual terlatih saat PvP |
+| **Logis** (Pola Berulang, Implikasi, Keanggotaan Kelompok, Negasi) | `...%` | `...%` | `+...%` | Ketepatan penalaran berbasis teks setelah latihan |
 
 ---
 

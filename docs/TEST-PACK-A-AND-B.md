@@ -26,10 +26,10 @@ Setiap nomor pada Paket A memiliki padanan konsep, tingkat kesulitan (*difficult
 | **9** | Numerik | Aljabar Cepat Selisih Kuadrat ($a^2 - b^2$) | Rumus cepat $(a+b)(a-b)$ tanpa kuadrat manual | $\le 30$ detik |
 | **10** | Numerik | Perbandingan Kuantitatif ($x$ vs $y$) | Perbandingan median vs rata-rata | $\le 45$ detik |
 | **11** | Numerik | Aritmatika Sosial (Kecepatan vs Waktu) | Perbandingan berbalik nilai cepat | $\le 60$ detik |
-| **12** | Logis / Figural | Serial Pola Rotasi Geometri | Rotasi $45^\circ / 90^\circ$ searah jarum jam | $\le 40$ detik |
-| **13** | Logis / Figural | Analogi Bentuk (Inversi Komponen) | Pertukaran elemen luar dan dalam | $\le 40$ detik |
-| **14** | Logis / Figural | Penggabungan & Eliminasi Elemen | Irisan bentuk sama dihilangkan | $\le 45$ detik |
-| **15** | Logis / Figural | Ketidaksamaan / Odd-One-Out | Refleksi cermin vs murni rotasi | $\le 40$ detik |
+| **12** | Logis | Pola Berulang | Mengikuti urutan kegiatan yang berulang setiap tiga hari | $\le 40$ detik |
+| **13** | Logis | Implikasi Berantai | Menarik kesimpulan dari dua aturan bersyarat | $\le 40$ detik |
+| **14** | Logis | Keanggotaan Kelompok | Memilih peserta yang tergabung dalam tepat satu kelompok | $\le 45$ detik |
+| **15** | Logis | Negasi Pernyataan | Menyangkal pernyataan universal dengan setidaknya satu pengecualian | $\le 40$ detik |
 | **16** | Karakteristik (TWK) | Integritas & Dilema Gratifikasi | Kode etik ASN & pencegahan konflik kepentingan | $\le 45$ detik |
 | **17** | Karakteristik (TWK) | Musyawarah & Konsensus Publik | Penerapan Sila ke-4 dalam kebuntuan tim | $\le 45$ detik |
 | **18** | Karakteristik (TKP) | Prioritas Pelayanan Publik | Dilema tugas administratif vs komplain publik | $\le 50$ detik |
@@ -137,40 +137,34 @@ E. 2,75 jam
 
 ---
 
-### [LOGIS & FIGURAL]
-**12.** Diberikan urutan pergerakan jarum penunjuk dalam lingkaran:  
-- Gambar 1: Jarum menunjuk ke arah Jam 12.  
-- Gambar 2: Jarum menunjuk ke arah Jam 1.30 ($45^\circ$ searah jarum jam).  
-- Gambar 3: Jarum menunjuk ke arah Jam 3 ($45^\circ$ searah jarum jam).  
-Arah jarum pada Gambar 4 berikutnya adalah ...  
-A. Jam 4.30 ($45^\circ$ searah jarum jam)  
-B. Jam 5  
-C. Jam 6  
-D. Jam 7.30  
-E. Jam 9  
+### [LOGIS]
+**12.** Jadwal tugas berulang setiap tiga hari dengan urutan: memeriksa berkas, memasukkan data, lalu menyusun laporan. Hari ke-1 digunakan untuk memeriksa berkas. Kegiatan pada hari ke-8 adalah ...\
+A. Memasukkan data\
+B. Memeriksa berkas\
+C. Menyusun laporan\
+D. Memasukkan data dan menyusun laporan\
+E. Tidak ada tugas\
 
-**13.** Hubungan Gambar A : B adalah sebuah lingkaran hitam besar yang di dalamnya terdapat segitiga putih kecil berubah menjadi segitiga hitam besar yang di dalamnya terdapat lingkaran putih kecil.  
-Jika diterapkan pada sebuah persegi hitam besar yang di dalamnya terdapat bintang putih kecil, maka bentuk perubahannya adalah:  
-A. Persegi putih besar dengan bintang hitam kecil di dalam.  
-B. Bintang putih besar dengan persegi hitam kecil di dalam.  
-C. Bintang hitam besar dengan persegi putih kecil di dalam.  
-D. Persegi hitam kecil di samping bintang putih besar.  
-E. Bintang hitam kecil di dalam lingkaran putih besar.  
+**13.** Setiap peserta yang lulus seleksi administrasi mendapat undangan wawancara. Setiap peserta yang mendapat undangan wawancara wajib mengonfirmasi kehadiran. Rina lulus seleksi administrasi. Kesimpulan yang pasti benar adalah ...\
+A. Rina sudah mengikuti wawancara.\
+B. Rina pasti diterima bekerja.\
+C. Rina wajib mengonfirmasi kehadiran.\
+D. Rina tidak mendapat undangan wawancara.\
+E. Rina sudah mengonfirmasi kehadiran.\
 
-**14.** Suatu aturan penggabungan dua gambar menyatakan: *"Garis atau elemen yang muncul pada KEDUA gambar akan saling menghilangkan (terhapus), sedangkan garis yang hanya muncul pada SALAH SATU gambar akan tetap dipertahankan."*  
-Jika Gambar I adalah tanda silang $(+)$ dan garis diagonal $(/)$, dan Gambar II adalah tanda silang $(+)$ dan garis horizontal $(-)$, maka hasil penggabungannya adalah:  
-A. Tanda silang $(+)$  
-B. Garis diagonal $(/)$ dan garis horizontal $(-)$  
-C. Garis diagonal $(/)$ saja  
-D. Seluruh garis terhapus menjadi kosong  
-E. Tanda bintang lengkap $(\ast)$  
+**14.** Daftar peserta kelas menulis adalah Andi, Bima, dan Citra. Daftar peserta kelas bahasa adalah Bima, Citra, dan Deni. Undangan khusus hanya diberikan kepada peserta yang mengikuti tepat satu dari kedua kelas tersebut. Siapa yang menerima undangan khusus?\
+A. Bima dan Citra\
+B. Andi dan Deni\
+C. Andi dan Bima\
+D. Citra dan Deni\
+E. Andi, Bima, Citra, dan Deni\
 
-**15.** Dari lima pilihan berikut, manakah bentuk yang BUKAN merupakan hasil rotasi biasa melainkan hasil pencerminan (refleksi terbalik)?  
-A. Huruf 'L' tegak standar.  
-B. Huruf 'L' diputar $90^\circ$ ke kanan (alas di kiri, tiang di bawah).  
-C. Huruf 'L' diputar $180^\circ$ terbalik.  
-D. Huruf 'L' terbalik horizontal (alas mengarah ke kiri seperti cermin).  
-E. Huruf 'L' diputar $270^\circ$ ke kanan.  
+**15.** Pernyataan "Semua peserta pelatihan sudah mengumpulkan tugas" ternyata salah. Pernyataan yang pasti benar adalah ...\
+A. Semua peserta belum mengumpulkan tugas.\
+B. Sebagian peserta sudah mengumpulkan tugas.\
+C. Tidak ada peserta pelatihan.\
+D. Setidaknya satu peserta belum mengumpulkan tugas.\
+E. Hanya satu peserta yang sudah mengumpulkan tugas.\
 
 ---
 
@@ -311,40 +305,34 @@ E. 3,5 jam
 
 ---
 
-### [LOGIS & FIGURAL]
-**12.** Diberikan urutan pergerakan sebuah panah di dalam kotak persegi:  
-- Gambar 1: Panah menunjuk ke arah Atas (Utara).  
-- Gambar 2: Panah menunjuk ke arah Kanan Atas (Timur Laut, rotasi $45^\circ$ searah jarum jam).  
-- Gambar 3: Panah menunjuk ke arah Kanan (Timur, rotasi $45^\circ$ searah jarum jam).  
-Arah panah pada Gambar 4 berikutnya adalah ...  
-A. Kanan Bawah (Tenggara, rotasi $45^\circ$ searah jarum jam)  
-B. Bawah (Selatan)  
-C. Kiri Bawah (Barat Daya)  
-D. Kiri (Barat)  
-E. Kembali ke Atas (Utara)  
+### [LOGIS]
+**12.** Jadwal belajar berulang setiap tiga hari dengan urutan: membaca materi, mengerjakan latihan, lalu membahas jawaban. Hari ke-1 digunakan untuk membaca materi. Kegiatan pada hari ke-11 adalah ...\
+A. Mengerjakan latihan\
+B. Membaca materi\
+C. Membahas jawaban\
+D. Mengerjakan latihan dan membahas jawaban\
+E. Tidak ada kegiatan\
 
-**13.** Hubungan Gambar A : B adalah sebuah segitiga hitam besar yang di dalamnya terdapat lingkaran putih kecil berubah menjadi lingkaran hitam besar yang di dalamnya terdapat segitiga putih kecil.  
-Jika diterapkan pada sebuah belah ketupat hitam besar yang di dalamnya terdapat tanda tambah (+) putih kecil, maka bentuk perubahannya adalah:  
-A. Belah ketupat putih besar dengan tanda (+) hitam kecil di dalam.  
-B. Tanda (+) putih besar dengan belah ketupat hitam kecil di dalam.  
-C. Tanda (+) hitam besar dengan belah ketupat putih kecil di dalam.  
-D. Belah ketupat hitam kecil di samping tanda (+) putih besar.  
-E. Tanda (+) hitam kecil di dalam lingkaran putih besar.  
+**13.** Setiap pegawai yang ditugaskan ke luar kota mendapat surat tugas. Setiap pegawai yang mendapat surat tugas wajib membuat laporan perjalanan. Dodi ditugaskan ke luar kota. Kesimpulan yang pasti benar adalah ...\
+A. Dodi sudah berangkat ke luar kota.\
+B. Dodi pasti mendapat kenaikan jabatan.\
+C. Dodi wajib membuat laporan perjalanan.\
+D. Dodi tidak mendapat surat tugas.\
+E. Dodi sudah membuat laporan perjalanan.\
 
-**14.** Suatu aturan penggabungan dua gambar menyatakan: *"Garis atau elemen yang muncul pada KEDUA gambar akan saling menghilangkan (terhapus), sedangkan garis yang hanya muncul pada SALAH SATU gambar akan tetap dipertahankan."*  
-Jika Gambar I adalah sebuah persegi utuh $(\square)$ dan garis diagonal kanan $(/)$, dan Gambar II adalah sebuah persegi utuh $(\square)$ dan garis diagonal kiri $(\backslash)$, maka hasil penggabungannya adalah:  
-A. Persegi utuh $(\square)$  
-B. Tanda silang diagonal $(\times)$ tanpa persegi  
-C. Persegi dengan tanda silang di dalamnya  
-D. Garis horizontal tengah  
-E. Seluruh elemen hilang (kosong)  
+**14.** Daftar anggota klub musik adalah Eka, Fajar, dan Gina. Daftar anggota klub teater adalah Fajar, Gina, dan Hani. Undangan khusus hanya diberikan kepada anggota yang mengikuti tepat satu dari kedua klub tersebut. Siapa yang menerima undangan khusus?\
+A. Fajar dan Gina\
+B. Eka dan Hani\
+C. Eka dan Fajar\
+D. Gina dan Hani\
+E. Eka, Fajar, Gina, dan Hani\
 
-**15.** Dari lima pilihan berikut, manakah bentuk yang BUKAN merupakan hasil rotasi biasa melainkan hasil pencerminan (refleksi terbalik)?  
-A. Huruf 'F' tegak standar.  
-B. Huruf 'F' diputar $90^\circ$ ke kanan (tiang horizontal, dua kaki ke bawah).  
-C. Huruf 'F' diputar $180^\circ$ terbalik.  
-D. Huruf 'F' terbalik horizontal (tiang di kanan, dua kaki menghadap ke kiri seperti di depan cermin).  
-E. Huruf 'F' diputar $270^\circ$ ke kanan.  
+**15.** Pernyataan "Semua berkas pendaftaran sudah diverifikasi" ternyata salah. Pernyataan yang pasti benar adalah ...\
+A. Semua berkas belum diverifikasi.\
+B. Sebagian berkas sudah diverifikasi.\
+C. Tidak ada berkas pendaftaran.\
+D. Setidaknya satu berkas belum diverifikasi.\
+E. Hanya satu berkas yang sudah diverifikasi.\
 
 ---
 
@@ -403,10 +391,10 @@ E. Memberikan seluruh tugas penulisan dokumen hanya kepada anggota tersebut.
 | **9** | **C (3.000)** | **C (5.000)** | **Rumus $a^2 - b^2 = (a+b)(a-b)$**: Paket A: $(65+35)(65-35) = 100 \times 30 = 3.000$. Paket B: $(75+25)(75-25) = 100 \times 50 = 5.000$. |
 | **10** | **C ($x = y$)** | **C ($x = y$)** | **Sifat Simetris Rata-rata vs Median**: Rata-rata bilangan berjarak sama = bilangan tengahnya. $x = 16, y = 16$ // $x = 24, y = 24$. |
 | **11** | **B (2 jam)** | **C (3 jam)** | **Perbandingan Berbalik Nilai**: Paket A: Jarak $= 3 \times 60 = 180\text{ km} \to t = \frac{180}{90} = 2\text{ jam}$. Paket B: Jarak $= 4 \times 120 = 480\text{ km} \to t = \frac{480}{160} = 3\text{ jam}$. |
-| **12** | **A** | **A** | **Rotasi Bertahap**: Pola konsisten $+45^\circ$ searah jarum jam $\to$ opsi A. |
-| **13** | **C** | **C** | **Inversi Elemen**: Objek dalam menjadi besar dan hitam; objek luar menjadi kecil dan putih di tengah. |
-| **14** | **B** | **B** | **XOR Logic (Irisan Terhapus)**: Elemen yang sama pada kedua gambar hilang, elemen unik dari masing-masing gambar bersatu. |
-| **15** | **D** | **D** | **Refleksi Cermin**: Opsi A, B, C, E dapat diperoleh murni hanya dengan memutar kertas. Opsi D tidak bisa diputar (harus dibalik/cermin). |
+| **12** | **A** | **A** | **Pola Berulang**: Paket A: Memasukkan data dilakukan pada hari ke-2, ke-5, dan ke-8. Setiap kegiatan berulang setelah tiga hari. Paket B: Mengerjakan latihan dilakukan pada hari ke-2, ke-5, ke-8, dan ke-11. Setiap kegiatan berulang setelah tiga hari. |
+| **13** | **C** | **C** | **Implikasi Berantai**: Paket A: Lulus administrasi berarti mendapat undangan, dan mendapat undangan berarti wajib mengonfirmasi kehadiran. Jadi Rina wajib mengonfirmasi; belum tentu ia sudah melakukannya. Paket B: Ditugaskan ke luar kota berarti mendapat surat tugas, dan mendapat surat tugas berarti wajib membuat laporan perjalanan. Jadi Dodi wajib membuat laporan; belum tentu ia sudah membuatnya. |
+| **14** | **B** | **B** | **Keanggotaan Kelompok**: Paket A: Andi hanya mengikuti kelas menulis dan Deni hanya mengikuti kelas bahasa. Bima dan Citra mengikuti kedua kelas, sehingga tidak memenuhi syarat tepat satu kelas. Paket B: Eka hanya mengikuti klub musik dan Hani hanya mengikuti klub teater. Fajar dan Gina mengikuti kedua klub, sehingga tidak memenuhi syarat tepat satu klub. |
+| **15** | **D** | **D** | **Negasi Pernyataan**: Paket A: Pernyataan semua peserta sudah mengumpulkan tugas menjadi salah jika ada setidaknya satu peserta yang belum mengumpulkan. Tidak dapat disimpulkan berapa peserta yang sudah mengumpulkan. Paket B: Pernyataan semua berkas sudah diverifikasi menjadi salah jika ada setidaknya satu berkas yang belum diverifikasi. Tidak dapat disimpulkan berapa berkas yang sudah diverifikasi. |
 | **16** | **B** | **B** | **Integritas Anti-Gratifikasi**: Nilai integritas tertinggi menolak secara sopan dan melaporkan ke instansi terkait / tolak *mark-up*. |
 | **17** | **C** | **C** | **Musyawarah Mufakat**: Mencari titik temu berbasis tujuan objektif lebih bernilai daripada pemaksaan suara (*voting* prematur). |
 | **18** | **C** | **B** | **Pelayanan Publik Cepat Tanggap**: Keseimbangan antara empati pelayanan masyarakat darurat dan manajemen waktu tanggung jawab utama. |
@@ -417,7 +405,7 @@ E. Memberikan seluruh tugas penulisan dokumen hanya kepada anggota tersebut.
 
 ## 5. Lembar Penilaian & Skoring
 
-- **Soal No. 1 s.d. 15 (Kemampuan Bakat GAT - Verbal, Numerik, Figural)**:
+- **Soal No. 1 s.d. 15 (Kemampuan Bakat GAT - Verbal, Numerik, Logis)**:
   - Jawaban Benar = **5 Poin**
   - Jawaban Salah / Kosong = **0 Poin**
   - Skor Maksimal Bagian GAT = **75 Poin**

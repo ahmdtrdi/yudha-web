@@ -687,7 +687,7 @@ export default function ClosedPilotClient() {
                   <strong>Numerik</strong> (Deret, Pecahan, Aljabar, Aritmatika) — 6 soal, Benar = 5, Salah/Kosong = 0
                 </li>
                 <li>
-                  <strong>Logis & Figural</strong> (Serial Pola, Inversi, Irisan XOR) — 4 soal, Benar = 5, Salah/Kosong = 0
+                  <strong>Logis</strong> (Pola Berulang, Implikasi, Keanggotaan Kelompok, Negasi) — 4 soal, Benar = 5, Salah/Kosong = 0
                 </li>
                 <li>
                   <strong>Situasional & Integritas</strong> (TWK / TKP) — 5 soal, Skala Adaptif = 5 s.d. 1, Tidak menjawab = 0

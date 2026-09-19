@@ -1558,3 +1558,24 @@
 
 
 
+
+## 2026-09-20 — Soal pilot tanpa ketergantungan visual
+
+### The Change
+
+- Mengganti soal 12–15 pada Paket A dan B di `src/lib/pilot-test-data.ts` dengan delapan soal logis berbasis teks: pola berulang, implikasi berantai, keanggotaan kelompok, dan negasi pernyataan; memperbarui pilihan serta pembahasan.
+- Mengubah kategori menjadi LOGIS dan menyelaraskan petunjuk di `src/app/closed-pilot/ClosedPilotClient.tsx`.
+- Menyelaraskan naskah, blueprint, kunci jawaban, dan format evaluasi di `docs/TEST-PACK-A-AND-B.md` serta `docs/PILOT-TEST-MECHANISM.md`.
+
+### The Reasoning
+
+- Soal rotasi, inversi bentuk, penggabungan garis, dan pencerminan sulit dikerjakan tanpa gambar. Penggantinya menyediakan seluruh informasi dalam teks dan satu jawaban yang dapat ditentukan.
+- Pasangan nomor A/B menguji konsep yang sama. Tiap paket tetap 20 soal, dengan skor maksimal 100 dan indeks kunci nomor 12–15 tetap A/C/B/D.
+- Validasi TypeScript dan pemeriksaan data berhasil: jumlah soal, lima opsi, indeks jawaban valid, skor maksimal, serta kecocokan soal/pilihan/pembahasan dengan dokumen.
+- ESLint pada kedua file sumber yang diubah dan `git diff --check` juga berhasil.
+- Peran pengguna sudah ditanyakan; sementara perubahan dicatat pada devlog FRONTEND yang tersedia.
+
+### The Tech Debt
+
+- Kesetaraan tingkat kesulitan soal pengganti perlu dikonfirmasi melalui uji peserta.
+- Riwayat pilot lama hanya menyimpan paket dan indeks jawaban, bukan versi naskah. Review riwayat lama akan menampilkan naskah terbaru; skor tersimpan tidak diubah. Versioning bank soal belum ditambahkan dalam perubahan konten ini.
