@@ -1,5 +1,3 @@
-"use client";
-
 export function GratisSeruEfektifSection() {
   return (
     <section className="w-full bg-[#9DD8F5] rounded-[28px] sm:rounded-[36px] py-10 sm:py-12 lg:py-14 px-5 sm:px-8 lg:px-10 flex flex-col items-center text-center font-sans my-4 sm:my-6 lg:my-8">
@@ -18,8 +16,16 @@ export function GratisSeruEfektifSection() {
         </p>
 
         {/* Video Card — left+bottom black shadow per Figma */}
-        <div className="w-full aspect-video border-[2.5px] border-stone-900 rounded-2xl sm:rounded-3xl bg-white shadow-[-4px_6px_0_rgba(0,0,0,0.9)] overflow-hidden flex items-center justify-center">
-          <span className="text-stone-300 text-sm font-medium select-none">Video Demo</span>
+        <div className="w-full aspect-video border-[2.5px] border-stone-900 rounded-2xl sm:rounded-3xl bg-white shadow-[-4px_6px_0_rgba(0,0,0,0.9)] overflow-hidden">
+          <iframe
+            className="w-full h-full border-0"
+            src="https://www.youtube.com/embed/DB1ynKI9qMg"
+            title="Video Demo YUDHA"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
         </div>
 
       </div>

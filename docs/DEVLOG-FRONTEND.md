@@ -1579,3 +1579,25 @@
 
 - Kesetaraan tingkat kesulitan soal pengganti perlu dikonfirmasi melalui uji peserta.
 - Riwayat pilot lama hanya menyimpan paket dan indeks jawaban, bukan versi naskah. Review riwayat lama akan menampilkan naskah terbaru; skor tersimpan tidak diubah. Versioning bank soal belum ditambahkan dalam perubahan konten ini.
+
+## 2026-10-09 — Video demo landing page dari YouTube
+
+### The Change
+
+- Mengganti placeholder Video Demo di `src/components/onboarding/GratisSeruEfektifSection.tsx` dengan iframe YouTube untuk video `DB1ynKI9qMg` dari link pengguna.
+- Mempertahankan kartu responsif 16:9, menambahkan judul aksesibel, lazy loading, dan dukungan fullscreen.
+- Menghapus directive `use client` yang tidak diperlukan karena komponen tidak memakai state, event handler, atau API browser.
+
+### The Reasoning
+
+- Memakai URL `/embed/` agar video dapat diputar langsung di landing page dengan player YouTube tanpa dependensi tambahan.
+- Memakai referrer policy `strict-origin-when-cross-origin` untuk mengirim identitas origin ke player tanpa membagikan path halaman.
+- Peran pengguna sudah ditanyakan; sementara perubahan dicatat pada devlog FRONTEND yang tersedia.
+
+### The Tech Debt
+
+- Tidak ada utang teknis baru. Pemutaran bergantung pada ketersediaan video dan izin embedding dari YouTube; pemutaran aktual belum diverifikasi di browser.
+
+### Validation
+
+- ESLint pada komponen, `npx tsc --noEmit`, dan `git diff --check` berhasil.
