@@ -1,36 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { landingCopy, type LocaleProps } from "@/lib/landing-copy";
 
-interface FaqItem {
-  question: string;
-  answer: string;
-}
-
-const FAQ_ITEMS: FaqItem[] = [
-  {
-    question: "Apakah Yudha benar-benar gratis?",
-    answer:
-      "Ya, Yudha gratis untuk digunakan. Kamu bisa latihan drilling soal GAT, ikut duel PvP, dan pantau progres tanpa biaya apapun.",
-  },
-  {
-    question: "Soal GAT apa saja yang tersedia di Yudha?",
-    answer:
-      "Yudha menyediakan 7 jenis soal GAT: Numerik, Verbal, Logis, Figural, Akhlak, TKP, dan TWK. Semua dirancang untuk persiapan seleksi CPNS, BUMN, dan management trainee.",
-  },
-  {
-    question: "Bagaimana cara kerja fitur Arena PvP?",
-    answer:
-      "Di Arena PvP, kamu duel menjawab soal dengan pemain lain secara real-time. Setelah selesai, sistem menunjukkan kelemahan kamu dan mengarahkan latihan mandiri di topik tersebut.",
-  },
-  {
-    question: "Apakah AI Interview bisa bantu persiapan wawancara BUMN?",
-    answer:
-      "Tentu. AI Interview melatih kamu menjawab pertanyaan interview dan memberi feedback instan soal cara jawabmu—bukan cuma soal tertulis, tapi juga persiapan berbicara di depan pewawancara.",
-  },
-];
-
-export function FaqSection() {
+export function FaqSection({ locale = "id" }: LocaleProps) {
+  const copy = landingCopy[locale].faq;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleItem = (index: number) => {
@@ -38,24 +12,26 @@ export function FaqSection() {
   };
 
   return (
-    <section className="w-full bg-white py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:px-14 font-sans">
+    <section id="faq" className="scroll-mt-6 w-full bg-white py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:px-14 font-sans">
       <div className="w-full max-w-[960px] mx-auto grid grid-cols-1 sm:grid-cols-[0.45fr_1fr] gap-8 sm:gap-12 lg:gap-16 items-start">
 
         {/* Left: Label + Heading */}
         <div className="flex flex-col gap-2">
           <span className="text-sm font-medium text-stone-400 tracking-wide">FAQ</span>
           <h2 className="text-3xl sm:text-[36px] lg:text-[40px] font-medium text-stone-950 tracking-tight leading-[1.1]">
-            Questions,
-            <br />
-            answered
+            {copy.title}
           </h2>
         </div>
 
         {/* Right: Accordion Items */}
         <div className="flex flex-col border-t border-stone-200">
-          {FAQ_ITEMS.map((item, index) => (
+          {copy.items.map((item, index) => (
             <div key={index} className="border-b border-stone-200">
               <button
+                type="button"
+                id={`faq-question-${index}`}
+                aria-expanded={openIndex === index}
+                aria-controls={`faq-answer-${index}`}
                 onClick={() => toggleItem(index)}
                 className="w-full flex items-center justify-between py-4 sm:py-5 text-left cursor-pointer group"
               >
@@ -67,11 +43,10 @@ export function FaqSection() {
                 </span>
               </button>
               <div
-                className="overflow-hidden transition-all duration-300 ease-out"
-                style={{
-                  maxHeight: openIndex === index ? "200px" : "0px",
-                  opacity: openIndex === index ? 1 : 0,
-                }}
+                id={`faq-answer-${index}`}
+                role="region"
+                aria-labelledby={`faq-question-${index}`}
+                hidden={openIndex !== index}
               >
                 <p className="text-xs sm:text-sm text-stone-500 leading-relaxed pb-4 sm:pb-5 pr-8">
                   {item.answer}

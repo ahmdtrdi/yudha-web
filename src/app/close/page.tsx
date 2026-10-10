@@ -4,22 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/links";
+import { contactCopy } from "@/lib/contact-copy";
+import { getLocale, landingHref } from "@/lib/landing-copy";
 
 function CloseContent() {
   const searchParams = useSearchParams();
   const from = searchParams.get("from");
   const isFromOpenBeta = from === "open-beta";
-
-  const waGroupUrl =
-    process.env.NEXT_PUBLIC_WA_GROUP_URL ||
-    "https://chat.whatsapp.com/Jm7WkNwdSfm2ILu7KCMs2A";
+  const locale = getLocale(searchParams.get("lang") ?? undefined);
+  const copy = contactCopy[locale];
 
   return (
-    <main className="h-screen w-full bg-white flex flex-col justify-between items-center p-6 sm:p-10 lg:p-12 overflow-hidden select-none">
+    <main lang={locale} className="min-h-screen w-full bg-white flex flex-col justify-between items-center p-6 sm:p-10 lg:p-12 select-none">
       {/* Top Header Bar: Brand Logo on Left, Back to Website Link on Right */}
       <header className="w-full max-w-[1340px] flex items-center justify-between">
         {/* Left: Brand Logo (logo-yudha.svg) */}
-        <Link href="/" className="inline-block group">
+        <Link href={landingHref(locale)} className="inline-block group">
           <Image
             src="/assets/logo-yudha.svg"
             alt="Yudha Logo"
@@ -32,7 +33,7 @@ function CloseContent() {
 
         {/* Right: Back to Website Link */}
         <Link
-          href="/"
+          href={landingHref(locale)}
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-stone-900 hover:text-stone-600 transition-colors"
         >
           <svg
@@ -48,7 +49,7 @@ function CloseContent() {
               d="M10 19l-7-7m0 0l7-7m-7 7h18"
             />
           </svg>
-          Back to Website
+          {copy.back}
         </Link>
       </header>
 
@@ -56,23 +57,23 @@ function CloseContent() {
       <div className="flex flex-col items-center justify-center text-center my-auto px-4 max-w-xl">
         {/* Main Title & Subtitle */}
         <h1 className="text-2xl sm:text-3xl md:text-[34px] font-[800] text-stone-950 leading-[1.25] tracking-tight mb-4 sm:mb-6">
-          Terima Kasih!<br />
-          Responmu kami simpan!
+          {copy.thanks}<br />
+          {from === "contact" ? copy.saved : copy.responseSaved}
         </h1>
 
         {/* Exclusive Open Beta Community WA Group Call-to-Action */}
         {isFromOpenBeta && (
           <div className="mb-6 sm:mb-8 flex flex-col items-center animate-fadeIn">
             <p className="text-xs sm:text-sm font-bold text-stone-700 mb-3">
-              Masuk ke komunitas grup Yudha
+              {copy.community}
             </p>
             <a
-              href={waGroupUrl}
+              href={WHATSAPP_COMMUNITY_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="nav-pill-btn nav-pill-blue px-10 py-2.5 text-xs sm:text-sm font-extrabold cursor-pointer inline-block text-center no-underline"
             >
-              Gabung
+              {copy.join}
             </a>
           </div>
         )}

@@ -1,9 +1,9 @@
-"use client";
-
 import { LazyImage } from "@/components/ui/LazyImage";
-import Link from "next/link";
+import { GooglePlayLink } from "@/components/GooglePlayLink";
+import { landingCopy, type LocaleProps } from "@/lib/landing-copy";
 
-export function CtaSection() {
+export function CtaSection({ locale = "id" }: LocaleProps) {
+  const copy = landingCopy[locale].cta;
   return (
     <section className="w-full px-4 sm:px-8 lg:px-8 py-8 sm:py-12 lg:py-[60px] font-sans bg-white flex justify-center">
       <div className="relative w-full max-w-[1280px] rounded-[24px] sm:rounded-[36px] overflow-hidden min-h-[420px] sm:min-h-[480px] lg:min-h-[640px] flex flex-col items-center justify-start">
@@ -11,7 +11,7 @@ export function CtaSection() {
         {/* Background Image with smooth lazy loading */}
         <LazyImage
           src="/assets/Gambar Watercolor Chibi.png"
-          alt="Watercolor chibi characters resting on a hill"
+          alt={copy.imageAlt}
           fill
           className="object-cover object-bottom"
         />
@@ -21,21 +21,15 @@ export function CtaSection() {
 
           {/* Heading — 48px white bold */}
           <h2 className="text-3xl sm:text-[40px] lg:text-[48px] font-extrabold text-white tracking-tight leading-[1.1] mb-2 sm:mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.25)]">
-            Latihan dimulai sekarang
+            {copy.title}
           </h2>
 
           {/* Subheading — 24px white */}
           <p className="text-lg sm:text-[22px] lg:text-[24px] text-white/90 font-medium leading-relaxed mb-6 sm:mb-8 drop-shadow-[0_1px_4px_rgba(0,0,0,0.2)]">
-            akses soal dimana saja, kapan saja
+            {copy.description}
           </p>
 
-          {/* CTA Button - Matches Figma Blue Button, links to Open Beta Form */}
-          <Link
-            href="/open-beta"
-            className="nav-pill-btn nav-pill-blue px-8 sm:px-10 py-3 sm:py-3.5 text-sm sm:text-base font-extrabold cursor-pointer"
-          >
-            Daftar
-          </Link>
+          <GooglePlayLink locale={locale} />
 
         </div>
 

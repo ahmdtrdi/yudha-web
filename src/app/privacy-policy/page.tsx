@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Navbar } from "@/components/Navbar";
 import { FooterSection } from "@/components/onboarding/FooterSection";
+import { CONTACT_EMAIL } from "@/lib/links";
 
 export const metadata: Metadata = {
   title: "Kebijakan Privasi — YUDHA",
@@ -14,9 +15,8 @@ export const metadata: Metadata = {
   },
 };
 
-const privacyEmail = "yudha.project67@gmail.com";
 const deletionMailto =
-  "mailto:yudha.project67@gmail.com?subject=Penghapusan%20Akun%20YUDHA";
+  `mailto:${CONTACT_EMAIL}?subject=Penghapusan%20Akun%20YUDHA`;
 
 const tableOfContents = [
   { href: "#ringkasan", label: "Ringkasan" },
@@ -146,6 +146,9 @@ export default function PrivacyPolicyPage() {
             <div className="mt-8 flex flex-wrap gap-3 text-sm font-bold">
               <span className="rounded-full border border-black bg-white/80 px-4 py-2">
                 Berlaku 1 September 2026
+              </span>
+              <span className="rounded-full border border-black bg-white/80 px-4 py-2">
+                Kontak diperbarui 10 Oktober 2026
               </span>
               <span className="rounded-full border border-black bg-white/80 px-4 py-2">
                 Pengguna usia 13+
@@ -502,11 +505,11 @@ export default function PrivacyPolicyPage() {
                   YUDHA — Your Ultimate Digital Hiring Arena
                 </p>
                 <a
-                  href={`mailto:${privacyEmail}`}
+                  href={`mailto:${CONTACT_EMAIL}`}
                   className="mt-3 inline-flex min-h-11 items-center font-extrabold text-[#0874b9] underline decoration-2 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                   style={{ color: "#0874b9" }}
                 >
-                  {privacyEmail}
+                  {CONTACT_EMAIL}
                 </a>
                 <span className="mx-3 hidden text-stone-400 sm:inline">•</span>
                 <Link

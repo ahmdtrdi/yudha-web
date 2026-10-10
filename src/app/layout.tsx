@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -10,9 +11,11 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  applicationName: "Yudha",
   title: "Yudha - Drilling Soal Dengan Cara Paling Seru",
   description:
-    "Jawab soal, serang lawan, menang duel—semua bisa kamu lakukan kapan pun dan di mana pun.",
+    "Latihan tes kemampuan umum, duel PvP, analisis progres, dan simulasi wawancara AI untuk persiapan seleksi karier di Indonesia.",
   icons: {
     icon: "/icon-bar-yudha.svg",
     shortcut: "/icon-bar-yudha.svg",

@@ -1,0 +1,43 @@
+const id = {
+  metadata: { title: "Hubungi Yudha — Dukungan dan Kemitraan", description: "Hubungi tim Yudha untuk dukungan pengguna, kemitraan, pertanyaan media, atau diskusi tentang produk kami." },
+  title: "Mari terhubung dengan tim Yudha.",
+  description: "Punya pertanyaan, masukan, atau ide kolaborasi? Kirim pesan ke tim kami.",
+  directEmail: "Atau hubungi kami langsung:",
+  back: "Kembali ke website",
+  name: "Nama", namePlaceholder: "Nama lengkap", email: "Email",
+  company: "Organisasi", optional: "opsional", companyPlaceholder: "Nama perusahaan atau organisasi",
+  represent: "Saya mewakili", select: "Pilih satu",
+  audiences: { student: "Mahasiswa / Pencari Kerja", company: "Perusahaan", school: "Sekolah / Universitas", media: "Media / Pers", other: "Lainnya" },
+  message: "Apa yang ingin kamu diskusikan?", messagePlaceholder: "Ceritakan pertanyaan atau ide kolaborasimu.",
+  privacy: "Pelajari cara kami menggunakan dan melindungi informasi kamu di", privacyLink: "Kebijakan Privasi",
+  submit: "Kirim pesan", sending: "Mengirim...",
+  failed: "Pesan belum terkirim. Silakan coba lagi atau hubungi kami melalui email.",
+  unavailable: "Formulir kontak sedang tidak tersedia. Silakan hubungi kami melalui email di atas.",
+  invalid: "Periksa kembali nama, alamat email, dan pesan kamu.",
+  network: "Koneksi terputus. Silakan coba lagi atau hubungi kami melalui email.",
+  thanks: "Terima kasih!", saved: "Pesanmu sudah kami terima.", responseSaved: "Responsmu sudah kami simpan.",
+  community: "Bergabung dengan komunitas Yudha", join: "Gabung",
+};
+
+const en: typeof id = {
+  metadata: { title: "Contact Yudha — Support and Partnerships", description: "Get in touch with the Yudha team for user support, partnerships, media inquiries, or product conversations." },
+  title: "Let's connect with the Yudha team.",
+  description: "Have a question, feedback, or a collaboration in mind? Send our team a message.",
+  directEmail: "Or contact us directly:",
+  back: "Back to website",
+  name: "Name", namePlaceholder: "Full name", email: "Email",
+  company: "Organization", optional: "optional", companyPlaceholder: "Company or organization name",
+  represent: "I represent", select: "Select one",
+  audiences: { student: "Student / Job Seeker", company: "Company / Enterprise", school: "School / University", media: "Media / Press", other: "Other" },
+  message: "What would you like to discuss?", messagePlaceholder: "Tell us about your question or collaboration idea.",
+  privacy: "Learn how we use and protect your information in our", privacyLink: "Privacy Policy (Indonesian)",
+  submit: "Send message", sending: "Sending...",
+  failed: "Your message has not been sent. Please try again or contact us by email.",
+  unavailable: "The contact form is currently unavailable. Please reach us at the email address above.",
+  invalid: "Please check your name, email address, and message.",
+  network: "The connection was interrupted. Please try again or contact us by email.",
+  thanks: "Thank you!", saved: "We have received your message.", responseSaved: "Your response has been saved.",
+  community: "Join the Yudha community", join: "Join",
+};
+
+export const contactCopy = { id, en };

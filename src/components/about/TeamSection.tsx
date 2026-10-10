@@ -1,54 +1,18 @@
-"use client";
-
 import { LazyImage } from "@/components/ui/LazyImage";
+import { aboutCopy } from "@/lib/about-copy";
+import type { LocaleProps } from "@/lib/landing-copy";
+import { TEAM_MEMBERS } from "@/lib/team";
 
-interface TeamMember {
-  name: string;
-  role: string;
-  position: string;
-  image: string;
-  linkedin: string;
-}
-
-const TEAM_MEMBERS: TeamMember[] = [
-  {
-    name: "Ridho Aditya",
-    role: "Co-Founder",
-    position: "CEO",
-    image: "/assets/CF1.jpeg",
-    linkedin: "https://www.linkedin.com/in/ridhoadityaputra/",
-  },
-  {
-    name: "Galnoel Rindengan",
-    role: "Co-Founder",
-    position: "CTO",
-    image: "/assets/CF2.jpeg",
-    linkedin: "https://www.linkedin.com/in/galnoel-rindengan/",
-  },
-  {
-    name: "Regina George",
-    role: "Co-Founder",
-    position: "Product Lead",
-    image: "/assets/CF3.jpeg",
-    linkedin: "https://www.linkedin.com/in/regina-george/",
-  },
-  {
-    name: "Ahmad Triadi",
-    role: "Co-Founder",
-    position: "Business Lead",
-    image: "/assets/CF4.jpeg",
-    linkedin: "https://www.linkedin.com/in/triadim/",
-  },
-];
-
-export function TeamSection() {
+export function TeamSection({ locale = "id" }: LocaleProps) {
+  const copy = aboutCopy[locale].team;
   return (
-    <section className="w-full bg-white pt-8 sm:pt-12 pb-16 sm:pb-24">
+    <section id="team" className="scroll-mt-6 w-full bg-white pt-8 sm:pt-12 pb-16 sm:pb-24">
       <div className="w-full max-w-[1020px] mx-auto px-6 sm:px-10 flex flex-col items-center">
         {/* Section Title */}
-        <h2 className="text-sm sm:text-base font-bold text-stone-950 mb-10 sm:mb-14 text-center">
-          The People behind Yudha
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-950 mb-3 text-center">
+          {copy.title}
         </h2>
+        <p className="mb-8 text-center text-sm text-stone-600 sm:mb-12">{copy.description}</p>
 
         {/* Team Grid: 4 columns on desktop, 2 on tablet/mobile */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 sm:gap-8 lg:gap-10 w-full max-w-[860px]">
@@ -59,6 +23,7 @@ export function TeamSection() {
                 href={member.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${member.name} — ${copy.linkedin}`}
                 className="w-full aspect-[4/5] relative bg-stone-100 rounded-none mb-4 sm:mb-5 overflow-hidden block transition-transform duration-200 group-hover:scale-[1.02]"
               >
                 <LazyImage
@@ -71,21 +36,19 @@ export function TeamSection() {
               </a>
 
               {/* Name */}
-              <a
-                href={member.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs sm:text-sm md:text-[15px] font-bold text-stone-950 leading-tight mb-1 hover:underline hover:text-stone-700 transition-colors inline-block"
-              >
+              <h3 className="text-xs sm:text-sm md:text-[15px] font-bold text-stone-950 leading-tight mb-1">
                 {member.name}
-              </a>
+              </h3>
 
               {/* Sub-roles */}
               <p className="text-[11px] sm:text-xs text-stone-500 font-medium leading-relaxed">
-                {member.role}
+                {copy.coFounder}
                 <br />
-                {member.position}
+                {member.position === "CEO" || member.position === "CTO" ? member.position : copy[member.position]}
               </p>
+              <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${member.name} — ${copy.linkedin}`} className="mt-2 inline-flex min-h-11 items-center gap-1 text-xs font-bold text-blue-800 underline underline-offset-4">
+                LinkedIn<span aria-hidden="true">↗</span>
+              </a>
             </div>
           ))}
         </div>
